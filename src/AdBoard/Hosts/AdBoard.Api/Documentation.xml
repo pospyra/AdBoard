@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdBoard.Api</name>
+    </assembly>
+    <members>
+        <member name="T:AdBoard.Api.Controllers.SelectedAdController">
+            <summary>
+            Работа с доской объявлений.
+            </summary>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.GetAsync">
+            <summary>
+            Возвращает позиции объявлений с доски
+            </summary>
+            <returns>Коллекция элементов <see cref="T:SelectedAd.Contracts.SelectedAdDto"/> </returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.UpdateQuantityAsync(System.Int32)">
+            <summary>
+            Обновляет количество объявлений на доске.
+            </summary>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.DeleteAsync(System.Guid)">
+            <summary>
+            Удаляет объявления на доски.
+            </summary>
+            <param name="Id">Индетификатор объявление на доске</param>
+        </member>
+    </members>
+</doc>
