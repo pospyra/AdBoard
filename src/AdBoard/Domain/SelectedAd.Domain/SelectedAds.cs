@@ -34,6 +34,6 @@ namespace SelectedAd.Domain
         /// <summary>
         /// Объявление.
         /// </summary>
-        public Ad Ad { get; set; }
+        public Ad Ad { get; set; } 
     }
 }

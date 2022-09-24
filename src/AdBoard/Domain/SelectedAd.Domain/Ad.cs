@@ -36,7 +36,9 @@ namespace SelectedAd.Domain
         /// </summary>
         public decimal Price { get; set; }
 
+        /// <summary>
+        /// Коллекция элементов Избранных.
+        /// </summary>
         public ICollection<SelectedAds> SelectedAds { get; set; }
-
     }
 }
