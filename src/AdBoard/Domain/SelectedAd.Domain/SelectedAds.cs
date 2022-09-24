@@ -9,7 +9,7 @@ namespace SelectedAd.Domain
     /// <summary>
     /// Избранные объявления.
     /// </summary>
-    public class SelectedAds
+    public class SelectedAds 
     {
         /// <summary>
         /// Идентификатор.
