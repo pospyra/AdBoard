@@ -13,7 +13,8 @@ namespace SelectedAd.DataAccess
 {
     public class SelectedAdContectConfiguration : IDbContextOptionsConfigurator<SelectedAdContext>
     {
-        private const string PostgresConnectionStringName = "AdBoardDb";
+        private const string PostgresConnectionStringName = "PostgresAdBoardDb";
+        private const string MsSqlAdBoardDb = "MsSqlAdBoardDb";
         private readonly IConfiguration _configuration;
         private readonly ILoggerFactory _loggerFactory;
 
@@ -31,12 +32,14 @@ namespace SelectedAd.DataAccess
 
         public void Configure(DbContextOptionsBuilder<SelectedAdContext> options)
         {
-            var connectionString = _configuration.GetConnectionString(ConnectionStringName);
+            var connectionString = _configuration.GetConnectionString(PostgresConnectionStringName);
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException(
                     $"Не найдена строка подключения с именем '(ConnectionStringName)'");
             }
+
+            //var useMsSql = _configuration.GetSection("DataBaseOptions: UseMsSql").Value;
 
             options.UseNpgsql(connectionString)
                 .UseLoggerFactory(_loggerFactory);
