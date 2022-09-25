@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SelectedAd.Domain": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:53971;http://localhost:53973"
+    }
+  }
+}
