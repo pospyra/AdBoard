@@ -39,10 +39,19 @@ namespace SelectedAd.DataAccess
                     $"Не найдена строка подключения с именем '(ConnectionStringName)'");
             }
 
-            //var useMsSql = _configuration.GetSection("DataBaseOptions: UseMsSql").Value;
+            var useMsSql = _configuration.Get<bool>("DataBaseOptions: UseMsSql").Value;
+                               
+            if (!useMsSql)
+            {
+                options.UseNpgsql(connectionString);
 
-            options.UseNpgsql(connectionString)
-                .UseLoggerFactory(_loggerFactory);
+            }
+            else
+            {
+                options.UseSqlServer(connectionString);
+            }
+
+            options.UseLoggerFactory(_loggerFactory);
         }
     }
 }
