@@ -51,7 +51,6 @@ namespace SelectedAd.DataAccess
             {
                 options.UseSqlServer(connectionString);
             }
-
             options.UseLoggerFactory(_loggerFactory);
         }
     }
