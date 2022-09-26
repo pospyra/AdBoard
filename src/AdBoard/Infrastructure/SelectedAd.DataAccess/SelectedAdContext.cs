@@ -9,6 +9,8 @@ namespace SelectedAd.DataAccess
 {
     public class SelectedAdContext : DbContext
     {
+        protected SelectedAdContext(DbContextOptions options)
+            : base(options) { }
 
     }
 }
