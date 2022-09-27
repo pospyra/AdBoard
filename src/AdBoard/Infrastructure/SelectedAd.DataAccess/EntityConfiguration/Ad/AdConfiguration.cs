@@ -14,9 +14,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             builder.Property(b => b.AdName).HasMaxLength(800);
 
-            builder.HasMany(p => p.SelectedAds)
-                .WithOne(s => s.Ad)
-                .HasForeignKey(s => s.AdId);
+            builder.HasMany(p => p.SelectedAds)//много избранных(так как много пользщователей)
+                .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)
+                .HasForeignKey(s => s.AdId);//связь по внешнему ключу
         }
     }
 }
