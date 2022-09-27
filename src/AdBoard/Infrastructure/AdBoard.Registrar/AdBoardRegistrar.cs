@@ -16,7 +16,7 @@ namespace AdBoard.Registrar
         {
             services.AddDbContext<SelectedAdContext>((Action<IServiceProvider, DbContextOptionsBuilder>)((sp, dbOptions) => sp.GetRequiredService<IDbContextOptionsConfigurator<SelectedAdContext>>().Configure((DbContextOptionsBuilder<SelectedAdContext>) dbOptions)));
             services.AddSingleton<IDbContextOptionsConfigurator<SelectedAdContext>, SelectedAdContectConfiguration>();
-            services.AddScoped<DbContext>((Func<IServiceProvider, DbContext>)(sp => (DbContext)sp.GetRequiredService<SelectedAdContext>()));
+            services.AddScoped(sp => (DbContext)sp.GetRequiredService<SelectedAdContext>());
             return services;
         }
     }
