@@ -18,4 +18,12 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntityConfiguration\SelectedAd\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\SelectedAd.Domain\SelectedAd.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

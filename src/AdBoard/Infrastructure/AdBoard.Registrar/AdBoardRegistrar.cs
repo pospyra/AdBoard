@@ -2,11 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using SelectedAd.DataAccess;
 using SelectedAd.DataAccess.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdBoard.Registrar
 {
@@ -14,9 +9,12 @@ namespace AdBoard.Registrar
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddDbContext<SelectedAdContext>((Action<IServiceProvider, DbContextOptionsBuilder>)((sp, dbOptions) => sp.GetRequiredService<IDbContextOptionsConfigurator<SelectedAdContext>>().Configure((DbContextOptionsBuilder<SelectedAdContext>) dbOptions)));
-            services.AddSingleton<IDbContextOptionsConfigurator<SelectedAdContext>, SelectedAdContectConfiguration>();
+            services.AddDbContext<SelectedAdContext>((Action<IServiceProvider, DbContextOptionsBuilder>)
+                ((sp, dbOptions) => sp.GetRequiredService<IDbContextOptionsConfigurator<SelectedAdContext>>()
+                .Configure((DbContextOptionsBuilder<SelectedAdContext>) dbOptions)));
+            services.AddSingleton<IDbContextOptionsConfigurator<SelectedAdContext>, SelectedAdContextConfiguration>();
             services.AddScoped(sp => (DbContext)sp.GetRequiredService<SelectedAdContext>());
+           
             return services;
         }
     }

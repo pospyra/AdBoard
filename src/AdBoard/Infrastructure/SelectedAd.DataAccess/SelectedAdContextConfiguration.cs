@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 
 namespace SelectedAd.DataAccess
 {
-    public class SelectedAdContectConfiguration : IDbContextOptionsConfigurator<SelectedAdContext>
+    public class SelectedAdContextConfiguration : IDbContextOptionsConfigurator<SelectedAdContext>
     {
         private const string PostgresConnectionStringName = "PostgresAdBoardDb";
         private const string MsSqlAdBoardDb = "MsSqlAdBoardDb";
         private readonly IConfiguration _configuration;
         private readonly ILoggerFactory _loggerFactory;
 
-        public SelectedAdContectConfiguration( ILoggerFactory loggerFactory,IConfiguration configuration)
+        public SelectedAdContextConfiguration( ILoggerFactory loggerFactory,IConfiguration configuration)
         {
             _loggerFactory = loggerFactory;
             _configuration = configuration;
         }
 
 
-        public SelectedAdContectConfiguration(ILoggerFactory loggerFactory)
+        public SelectedAdContextConfiguration(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
         }
