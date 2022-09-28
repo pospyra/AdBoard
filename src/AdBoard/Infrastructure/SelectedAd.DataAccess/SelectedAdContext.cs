@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SelectedAd.DataAccess.EntityConfiguration.Ad;
+using SelectedAd.DataAccess.EntityConfiguration.SelectedAd;
 
-namespace SelectedAd.DataAccess 
+namespace SelectedAd.DataAccess
 {
     public class SelectedAdContext : DbContext
     {
@@ -17,6 +14,11 @@ namespace SelectedAd.DataAccess
         { 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AdConfiguration());
+            modelBuilder.ApplyConfiguration(new SelectedAdConfiguration());
+        }
     }
 }
  

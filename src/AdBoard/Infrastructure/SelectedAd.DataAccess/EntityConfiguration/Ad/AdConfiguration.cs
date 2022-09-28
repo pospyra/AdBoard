@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Domain.Ad>
+    public class AdConfiguration : IEntityTypeConfiguration<Domain.Ad>
     {
         public void Configure(EntityTypeBuilder<Domain.Ad> builder)
         {
@@ -13,8 +13,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             builder.Property(b => b.Id).ValueGeneratedOnAdd();
 
             builder.Property(b => b.AdName).HasMaxLength(800);
-
-            builder.HasMany(p => p.SelectedAds)//много избранных(так как много пользщователей)
+            
+            //связь бд
+            builder.HasMany(p => p.SelectedAds)// связь одтн ко многим. много избранных(так как много пользователей)
                 .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)
                 .HasForeignKey(s => s.AdId);//связь по внешнему ключу
         }
