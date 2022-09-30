@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AdBoard.Migrations
 {
-    public class MigrationsDbContext : SelectedAdContext
+    public class MigrationsDbContext : AdBoardContext
     {
-        protected MigrationsDbContext(DbContextOptions<MigrationsDbContext> options) : base(options)
+        public MigrationsDbContext(DbContextOptions<MigrationsDbContext> options) : base(options)
         {
 
         }

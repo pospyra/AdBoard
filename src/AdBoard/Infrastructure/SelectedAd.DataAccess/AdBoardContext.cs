@@ -4,12 +4,12 @@ using SelectedAd.DataAccess.EntityConfiguration.SelectedAd;
 
 namespace SelectedAd.DataAccess
 {
-    public class SelectedAdContext : DbContext
+    public class AdBoardContext : DbContext
     {
         ///<summary>
         ///Инициализирует экземпляр <see cref="NsiDbContext"/>.
         ///</summary>
-        protected SelectedAdContext(DbContextOptions options)
+        protected AdBoardContext(DbContextOptions options)
             : base(options)
         { 
         }

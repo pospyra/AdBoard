@@ -5,7 +5,7 @@ using SelectedAd.DataAccess.Interface;
 
 namespace SelectedAd.DataAccess
 {
-    public class SelectedAdContextConfiguration : IDbContextOptionsConfigurator<SelectedAdContext>
+    public class SelectedAdContextConfiguration : IDbContextOptionsConfigurator<AdBoardContext>
     {
         private const string PostgresConnectionStringName = "PostgresAdBoardDb";
         private const string MsSqlAdBoardDb = "MsSqlAdBoardDb";
@@ -24,7 +24,7 @@ namespace SelectedAd.DataAccess
             _loggerFactory = loggerFactory;
         }
 
-        public void Configure(DbContextOptionsBuilder<SelectedAdContext> options)
+        public void Configure(DbContextOptionsBuilder<AdBoardContext> options)
         {
             string connectionString;
 
