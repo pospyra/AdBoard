@@ -34,5 +34,11 @@ public class Ad
         /// Коллекция элементов Избранных.
         /// </summary>
         public ICollection<SelectedAds> SelectedAds { get; set; }
+
+        /// <summary>
+        /// Категория
+        /// </summary>
+        public Categories Categories { get; set; }
+
     }
 }

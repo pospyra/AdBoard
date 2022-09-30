@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelectedAd.DataAccess", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdBoard.Registrar", "src\AdBoard\Infrastructure\AdBoard.Registrar\AdBoard.Registrar.csproj", "{ACACD601-C80E-466D-B240-464BDE298499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdBoard.Migrations", "src\AdBoard\Infrastructure\AdBoard.Migrations\AdBoard.Migrations.csproj", "{37BC814E-B333-47D9-BBC9-909115ADD3CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdBoard.Migrations", "src\AdBoard\Infrastructure\AdBoard.Migrations\AdBoard.Migrations.csproj", "{37BC814E-B333-47D9-BBC9-909115ADD3CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
