@@ -13,7 +13,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             builder.Property(b => b.Id).ValueGeneratedOnAdd();
 
             builder.Property(b => b.AdName).HasMaxLength(800);
-            
+
+            builder.Property(b => b.Description).HasMaxLength(2000);
+
             //связь бд
             builder.HasMany(p => p.SelectedAds)// связь один ко многим. много избранных(так как много пользователей)
                 .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)

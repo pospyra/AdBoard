@@ -15,6 +15,7 @@ public class Ad
         /// </summary>
         public string AdName { get; set; }
 
+        
         /// <summary>
         /// Идентификатор Категории объявления.
         /// </summary>

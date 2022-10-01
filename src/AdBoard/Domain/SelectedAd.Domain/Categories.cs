@@ -23,7 +23,7 @@ namespace SelectedAd.Domain
         /// </summary>
 
         /// <summary>
-        /// Коллекцияэлементов объявлений.
+        /// Коллекция элементов объявлений.
         /// </summary>
         public ICollection<Ad> Ad { get; set; }
     }
