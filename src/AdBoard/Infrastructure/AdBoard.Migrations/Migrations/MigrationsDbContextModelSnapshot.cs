@@ -33,9 +33,6 @@ namespace AdBoard.Migrations.Migrations
                         .HasMaxLength(800)
                         .HasColumnType("character varying(800)");
 
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
@@ -49,7 +46,7 @@ namespace AdBoard.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriesId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Ads", (string)null);
                 });
@@ -93,13 +90,13 @@ namespace AdBoard.Migrations.Migrations
 
             modelBuilder.Entity("SelectedAd.Domain.Ad", b =>
                 {
-                    b.HasOne("SelectedAd.Domain.Categories", "Categories")
+                    b.HasOne("SelectedAd.Domain.Categories", "Category")
                         .WithMany("Ad")
-                        .HasForeignKey("CategoriesId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categories");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("SelectedAd.Domain.SelectedAds", b =>

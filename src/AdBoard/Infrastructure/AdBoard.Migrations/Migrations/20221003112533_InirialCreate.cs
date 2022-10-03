@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdBoard.Migrations.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InirialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,16 +28,15 @@ namespace AdBoard.Migrations.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AdName = table.Column<string>(type: "character varying(800)", maxLength: 800, nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    CategoriesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ads", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ads_Categories_CategoriesId",
-                        column: x => x.CategoriesId,
+                        name: "FK_Ads_Categories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -64,9 +63,9 @@ namespace AdBoard.Migrations.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ads_CategoriesId",
+                name: "IX_Ads_CategoryId",
                 table: "Ads",
-                column: "CategoriesId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SelectedAds_AdId",

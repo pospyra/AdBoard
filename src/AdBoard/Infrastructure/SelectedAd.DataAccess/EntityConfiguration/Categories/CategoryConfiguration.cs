@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Categories
 {
@@ -21,7 +16,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Categories
 
             //связь бд
             builder.HasMany(p => p.Ad)// связь один ко многим. много объяалений
-                .WithOne(s => s.Categories)//у категории - есть много объявлений
+                .WithOne(s => s.Category)//у категории - есть много объявлений
                 .HasForeignKey(s => s.CategoryId);//связь по внешнему ключу
         }
     }  

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdBoard.Migrations.Migrations
 {
     [DbContext(typeof(MigrationsDbContext))]
-    [Migration("20221001105804_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221003114652_Seed_Ads_Data")]
+    partial class Seed_Ads_Data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,22 +35,20 @@ namespace AdBoard.Migrations.Migrations
                         .HasMaxLength(800)
                         .HasColumnType("character varying(800)");
 
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriesId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Ads", (string)null);
                 });
@@ -94,13 +92,13 @@ namespace AdBoard.Migrations.Migrations
 
             modelBuilder.Entity("SelectedAd.Domain.Ad", b =>
                 {
-                    b.HasOne("SelectedAd.Domain.Categories", "Categories")
+                    b.HasOne("SelectedAd.Domain.Categories", "Category")
                         .WithMany("Ad")
-                        .HasForeignKey("CategoriesId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categories");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("SelectedAd.Domain.SelectedAds", b =>

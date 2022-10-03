@@ -39,7 +39,7 @@ public class Ad
         /// <summary>
         /// Категория
         /// </summary>
-        public Categories Categories { get; set; }
+        public Categories Category { get; set; }
 
     }
 }
