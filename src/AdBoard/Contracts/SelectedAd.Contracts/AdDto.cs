@@ -1,9 +1,15 @@
-﻿namespace SelectedAd.Domain
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SelectedAd.Contracts
 {
     /// <summary>
-    /// Объявление.
+    /// Модель представления объявлений.
     /// </summary>
-    public class Ad
+    public class AdDto
     {
         /// <summary>
         /// Идентификатор.
@@ -15,7 +21,7 @@
         /// </summary>
         public string AdName { get; set; }
 
-        
+
         /// <summary>
         /// Идентификатор Категории объявления.
         /// </summary>
@@ -30,19 +36,5 @@
         /// Цена.
         /// </summary>
         public decimal Price { get; set; }
-
-        //фото
-
-        //время и дата отправки объявления
-
-        /// <summary>
-        /// Коллекция элементов Избранных.
-        /// </summary>
-        public ICollection<SelectedAds> SelectedAds { get; set; }
-
-        /// <summary>
-        /// Категория
-        /// </summary>
-        public Categories Category { get; set; }
     }
 }

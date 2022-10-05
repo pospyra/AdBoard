@@ -9,7 +9,7 @@ namespace SelectedAd.DataAccess
         ///<summary>
         ///Инициализирует экземпляр <see cref="NsiDbContext"/>.
         ///</summary>
-        protected AdBoardContext(DbContextOptions options)
+        public AdBoardContext(DbContextOptions options)
             : base(options)
         { 
         }

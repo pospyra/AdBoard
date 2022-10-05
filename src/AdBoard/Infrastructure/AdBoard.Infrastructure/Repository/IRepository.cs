@@ -18,7 +18,7 @@ namespace AdBoard.Infrastructure.Repository
         ///Возвращает все значения по фильтру
         ///</summary>
         /// <param name="filter">Фильтр.</param>
-        ///<returns>Все элементы сущности <see cref="TEntity"/> по фильтру.</returns></returns>
+        ///<returns>Все элементы сущности <see cref="TEntity"/> по фильтру.</returns>
         IQueryable<TEntity> GetAllFiltered(Expression<Func<TEntity, bool>> filter);
 
         ///<summary>

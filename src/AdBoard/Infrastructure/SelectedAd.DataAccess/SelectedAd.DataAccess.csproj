@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\AdBoard.AppServices\AdBoard.AppServices.csproj" />
     <ProjectReference Include="..\..\Domain\SelectedAd.Domain\SelectedAd.Domain.csproj" />
+    <ProjectReference Include="..\AdBoard.Infrastructure\AdBoard.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,11 +3,13 @@ using SelectedAd.Contracts;
 using System.Net;
 
 namespace AdBoard.Api.Controllers
-{ /// <summary>
+{ 
+  /// <summary>
   /// Работа с доской объявлений.
   /// </summary>
 
     [ApiController]
+
     [Route("v1/[controller]")]
 
     public class SelectedAdController : ControllerBase
@@ -18,9 +20,9 @@ namespace AdBoard.Api.Controllers
         /// <summary>
         /// Возвращает позиции объявлений с доски
         /// </summary>
-        /// <returns>Коллекция элементов <see cref="SelectedAdDto"/> </returns>
+        /// <returns>Коллекция элементов <see cref="SelectedAd.Contracts.SelectedAdDto"/> </returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAdDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAd.Contracts.SelectedAdDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAsync()
         {
             return await Task.FromResult(Ok());

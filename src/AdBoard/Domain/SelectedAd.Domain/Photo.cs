@@ -8,7 +8,10 @@ namespace SelectedAd.Domain
 {
     public class Photo
     {
-        public int Id { get; set; }
+        /// <summary>
+        /// Иденификатор фотографии.
+        /// </summary>
+        public Guid Id { get; set; }
 
 
     }

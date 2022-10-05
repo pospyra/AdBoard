@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdBoard.Infrastructure\AdBoard.Infrastructure.csproj" />
     <ProjectReference Include="..\SelectedAd.DataAccess\SelectedAd.DataAccess.csproj" />
   </ItemGroup>
 

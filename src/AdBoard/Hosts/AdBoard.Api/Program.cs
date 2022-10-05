@@ -15,9 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "SelectAd.Api", Version = "v1" });
+    options.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "AdBoard.Api", Version = "v1" });
     options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory,
-        $"{typeof(SelectedAdDto).Assembly.GetName().Name}.xml")));
+         $"{typeof(SelectedAdDto).Assembly.GetName().Name}.xml")));
     options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory, "Documentation.xml")));
 });
 
