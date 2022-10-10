@@ -20,6 +20,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdBoard.Api", "src\AdBoard\Hosts\AdBoard.Api\AdBoard.Api.csproj", "{C51A19A7-E696-4DDD-B8F9-69A121D4EB27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{B4D4302D-3994-4937-9D2A-4BBC099B78B4}"
+	ProjectSection(SolutionItems) = preProject
+		src\AdBoard\Hosts\AdBoard.Api\Program.cs = src\AdBoard\Hosts\AdBoard.Api\Program.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelectedAd.DataAccess", "src\AdBoard\Infrastructure\SelectedAd.DataAccess\SelectedAd.DataAccess.csproj", "{0480C770-2CDF-453C-8EF2-712E014E5360}"
 EndProject
@@ -31,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdBoard.Infrastructure", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7F63D54C-71A8-4698-9371-3753E14BFB3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdBoard.AppServices", "src\AdBoard\Application\AdBoard.AppServices\AdBoard.AppServices.csproj", "{0CE7AF7F-CA81-4A84-8077-929600BC4B78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdBoard.AppServices", "src\AdBoard\Application\AdBoard.AppServices\AdBoard.AppServices.csproj", "{0CE7AF7F-CA81-4A84-8077-929600BC4B78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

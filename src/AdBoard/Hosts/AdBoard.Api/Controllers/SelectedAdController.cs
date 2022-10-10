@@ -1,3 +1,5 @@
+using AdBoard.AppServices.Ad.Services;
+using AdBoard.AppServices.SelectedAd.Services;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
 using System.Net;
@@ -5,7 +7,7 @@ using System.Net;
 namespace AdBoard.Api.Controllers
 { 
   /// <summary>
-  /// Работа с доской объявлений.
+  /// Работа с Избранными объявлениями.
   /// </summary>
 
     [ApiController]
@@ -14,41 +16,50 @@ namespace AdBoard.Api.Controllers
 
     public class SelectedAdController : ControllerBase
     {
+        private readonly ISelectedAdService _selectedAdService;
+
+        public SelectedAdController(ISelectedAdService selectedAdService)
+        {
+            _selectedAdService = selectedAdService;
+        }
+
         public SelectedAdController()
         { 
         }
         /// <summary>
-        /// Возвращает позиции объявлений с доски
+        /// Возвращает позиции избранных объявлений
         /// </summary>
         /// <returns>Коллекция элементов <see cref="SelectedAd.Contracts.SelectedAdDto"/> </returns>
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAd.Contracts.SelectedAdDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAsync( CancellationToken cancellation)
         {
-            return await Task.FromResult(Ok());
-        }
+            var result = await _selectedAdService.GetAsync(cancellation);
+            return Ok(result);        }
 
         /// <summary>
-        /// Обновляет количество объявлений на доске.
+        /// Обновляет количество избранных объявлений.
         /// </summary>
         [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateQuantityAsync(int quantity)
+        public async Task<IActionResult> UpdateQuantityAsync(Guid id, int quantity,CancellationToken cancellation)
         {
-            return await Task.FromResult(Ok());
+            await _selectedAdService.UpdateQuantityAsync(id, quantity, cancellation);
+            return NoContent();
         }
 
         /// <summary>
-        /// Удаляет объявления на доски.
+        /// Удаляет объявление из избранных.
         /// </summary>
-        /// <param name="Id">Индетификатор объявление на доске</param>
+        /// <param name="Id">Индетификатор объявления на доске</param>
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeleteAsync(Guid Id)
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellation)
         {
-            return await Task.FromResult(Ok());
+            await _selectedAdService.DeleteAsync(id, cancellation);
+            return NoContent();
         }
     }
 }

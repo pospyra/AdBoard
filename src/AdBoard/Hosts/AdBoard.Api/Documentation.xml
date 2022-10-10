@@ -4,27 +4,41 @@
         <name>AdBoard.Api</name>
     </assembly>
     <members>
-        <member name="T:AdBoard.Api.Controllers.SelectedAdController">
+        <member name="T:AdBoard.Api.Controllers.AdController">
             <summary>
             Работа с доской объявлений.
             </summary>
         </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.GetAsync">
+        <member name="M:AdBoard.Api.Controllers.AdController.GetAll(System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Возвращает позиции объявлений с доски
+            Возвращает позиции всех объявлений.
+            </summary>
+            <param name="take"></param>
+            <param name="skip"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AdBoard.Api.Controllers.SelectedAdController">
+            <summary>
+            Работа с Избранными объявлениями.
+            </summary>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.GetAsync(System.Threading.CancellationToken)">
+            <summary>
+            Возвращает позиции избранных объявлений
             </summary>
             <returns>Коллекция элементов <see cref="T:SelectedAd.Contracts.SelectedAdDto"/> </returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.UpdateQuantityAsync(System.Int32)">
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.UpdateQuantityAsync(System.Guid,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Обновляет количество объявлений на доске.
+            Обновляет количество избранных объявлений.
             </summary>
         </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.DeleteAsync(System.Guid)">
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
             <summary>
-            Удаляет объявления на доски.
+            Удаляет объявление из избранных.
             </summary>
-            <param name="Id">Индетификатор объявление на доске</param>
+            <param name="Id">Индетификатор объявления на доске</param>
         </member>
     </members>
 </doc>

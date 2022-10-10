@@ -5,6 +5,9 @@ using SelectedAd.DataAccess.Interface;
 
 namespace SelectedAd.DataAccess
 {
+    /// <summary>
+    /// Конфигурация контекста БД
+    /// </summary>
     public class AdBoardContextConfiguration : IDbContextOptionsConfigurator<AdBoardContext>
     {
         private const string PostgresConnectionStringName = "PostgresAdBoardDb";
@@ -12,24 +15,24 @@ namespace SelectedAd.DataAccess
         private readonly IConfiguration _configuration;
         private readonly ILoggerFactory _loggerFactory;
 
+        /// <summary>
+        /// Инициализирует экзмпляр <see cref="AdBoardContextConfiguration"/>
+        /// </summary>
+        /// <param name="loggerFactory">Фабрика средств логирования</param>
+        /// <param name="configuration">Конфигурация</param>
         public AdBoardContextConfiguration( ILoggerFactory loggerFactory,IConfiguration configuration)
         {
             _loggerFactory = loggerFactory;
             _configuration = configuration;
         }
 
-
-        public AdBoardContextConfiguration(ILoggerFactory loggerFactory)
-        {
-            _loggerFactory = loggerFactory;
-        }
-
+        /// <inheritdoc />
         public void Configure(DbContextOptionsBuilder<AdBoardContext> options)
         {
             string connectionString;
 
             //var useMsSql = _configuration.Get<bool>("DataBaseOptions: UseMsSql").Value;
-            var useMsSql = false;
+            var useMsSql = _configuration.GetSection("DataBaseOptions:UseMsSql").Get<bool>(); ;
 
             if (!useMsSql)
             {

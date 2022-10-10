@@ -5,6 +5,7 @@ using SelectedAd.Contracts;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 {
+    /// <inheritdoc />
     public class AdRepository : IAdRepository
     {
         private readonly IRepository<Domain.Ad> _repository;
