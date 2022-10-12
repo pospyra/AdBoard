@@ -31,8 +31,7 @@ namespace SelectedAd.DataAccess
         {
             string connectionString;
 
-            //var useMsSql = _configuration.Get<bool>("DataBaseOptions: UseMsSql").Value;
-            var useMsSql = _configuration.GetSection("DataBaseOptions:UseMsSql").Get<bool>(); ;
+            var useMsSql = _configuration.GetSection("DataBaseOptions:UseMsSql").Get<bool>(); 
 
             if (!useMsSql)
             {

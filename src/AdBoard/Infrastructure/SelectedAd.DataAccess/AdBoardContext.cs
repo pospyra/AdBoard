@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SelectedAd.DataAccess.EntityConfiguration.Ad;
 using SelectedAd.DataAccess.EntityConfiguration.SelectedAd;
+using System.Reflection;
 
 namespace SelectedAd.DataAccess
 {
@@ -16,8 +17,9 @@ namespace SelectedAd.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdConfiguration());
-            modelBuilder.ApplyConfiguration(new SelectedAdConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(), t => t.GetInterfaces().Any(i =>
+                i.IsGenericType &&
+                i.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)));
         }
     }
 }

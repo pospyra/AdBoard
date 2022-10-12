@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelectedAd.Domain
+namespace SelectedAd.Contracts
 {
     /// <summary>
-    /// Пользователь.
+    /// Можель представления Пользователя
     /// </summary>
-    public class User
+    public class UserDto
     {
-        /// <summary>
-        /// Идентификтаор пользователя
-        /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace SelectedAd.Domain
         /// <summary>
         /// Регион
         /// </summary>
-        public string Region {get; set; }
+        public string Region { get; set; }
 
         /// <summary>
         /// Возомжность доставки
