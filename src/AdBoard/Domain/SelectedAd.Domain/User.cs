@@ -46,9 +46,5 @@ namespace SelectedAd.Domain
         /// </summary>
         public string Region {get; set; }
 
-        /// <summary>
-        /// Возомжность доставки
-        /// </summary>
-        bool PossibleOfDelivery { get; set; }
     }
 }
