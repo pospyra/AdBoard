@@ -19,7 +19,9 @@ namespace AdBoard.Migrations.Factories
 
             //получаем строку подключения из файла appsettings.json
             string connectionString = config.GetConnectionString("PostgresAdBoardDb");
-            optionsBuilder.UseNpgsql(connectionString, opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
+            optionsBuilder.UseNpgsql(connectionString, opts => opts
+            .CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
+            
             return new MigrationsDbContext(optionsBuilder.Options);
         }
     }

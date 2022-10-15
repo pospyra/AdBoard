@@ -45,4 +45,4 @@ namespace AdBoard.Registrar
             return services;
         }
     }
-}
+} 

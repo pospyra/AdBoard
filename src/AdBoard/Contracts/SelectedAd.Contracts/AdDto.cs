@@ -36,5 +36,11 @@ namespace SelectedAd.Contracts
         /// Цена.
         /// </summary>
         public decimal Price { get; set; }
+
+
+        /// <summary>
+        /// Возомжность доставки
+        /// </summary>
+        public  bool PossibleOfDelivery { get; set; }
     }
 }

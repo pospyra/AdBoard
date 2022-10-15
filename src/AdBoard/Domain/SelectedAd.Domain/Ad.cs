@@ -33,6 +33,12 @@
 
         //фото
 
+
+        /// <summary>
+        /// Возомжность доставки
+        /// </summary>
+       public  bool PossibleOfDelivery { get; set; }
+
         //время и дата отправки объявления
 
         /// <summary>
