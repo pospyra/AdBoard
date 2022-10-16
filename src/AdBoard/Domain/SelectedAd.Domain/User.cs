@@ -46,5 +46,6 @@ namespace SelectedAd.Domain
         /// </summary>
         public string Region {get; set; }
 
+
     }
 }

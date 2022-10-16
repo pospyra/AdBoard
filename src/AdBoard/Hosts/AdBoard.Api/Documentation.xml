@@ -40,5 +40,10 @@
             </summary>
             <param name="Id">Индетификатор объявления на доске</param>
         </member>
+        <member name="T:AdBoard.Api.Controllers.UserController">
+            <summary>
+            Работа с Пользователями
+            </summary>
+        </member>
     </members>
 </doc>

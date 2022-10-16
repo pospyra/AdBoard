@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SelectedAd.Contracts;
+﻿using SelectedAd.Contracts;
 using SelectedAd.Domain;
 
+namespace AdBoard
 
-namespace AdBoard.AppServices.User.Services
-{
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IUserService
-    { 
+    {
         /// <summary>
-        /// Регистация пользователя
+        /// Регистрация пользователя.
         /// </summary>
-        /// <param name="Login">Логин</param>
-        /// <param name="Password">Пароль</param>
-        /// <returns>Индентификтаор пользователя</returns>
-         Task <int> Register(string Login, string Password, CancellationToken cancellation);
+        /// <param name="Login">Логин.</param>
+        /// <param name="Password">Пароль.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Идентификатор пользователя.</returns>
+        Task<int> Register(string login, string password, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Вход
+        /// Залогиниться.
         /// </summary>
         /// <param name="Login"></param>
         /// <param name="Password"></param>
-        /// <returns>Токен</returns>
-        Task<string> Login(string Login, string Password, CancellationToken cancellation);
+        /// <param name="cancellationToken"></param>
+        /// <returns>Токен.</returns>
+        Task<string> Login(string login, string password, CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
+        /// Получить текущего пользователя
         /// </summary>
-        /// <param name="cancellation"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<User> GetCurrent(CancellationToken cancellation);
+        Task<User> GetCurrent(CancellationToken cancellationToken);
     }
 }
