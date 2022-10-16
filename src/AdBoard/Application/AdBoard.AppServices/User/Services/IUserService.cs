@@ -1,7 +1,7 @@
 ﻿using SelectedAd.Contracts;
 using SelectedAd.Domain;
 
-namespace AdBoard
+namespace AdBoard { 
 
     /// <summary>
     /// 

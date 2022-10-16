@@ -1,5 +1,6 @@
 using AdBoard.AppServices.Ad.Services;
 using AdBoard.AppServices.SelectedAd.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
 using System.Net;
@@ -11,6 +12,7 @@ namespace AdBoard.Api.Controllers
   /// </summary>
 
     [ApiController]
+    [Authorize]
 
     [Route("v1/[controller]")]
 

@@ -11,7 +11,7 @@ using AdBoard.AppServices.SelectedAd.Repositories;
 using SelectedAd.DataAccess.EntityConfiguration.SelectedAd;
 using AdBoard.AppServices.SelectedAd.Services;
 using AdBoard.AppServices.User.IRepository;
-using AdBoard.AppServices.User.Services;
+using AdBoard.AppServices.User;
 using SelectedAd.DataAccess.EntityConfiguration.User;
 
 namespace AdBoard.Registrar

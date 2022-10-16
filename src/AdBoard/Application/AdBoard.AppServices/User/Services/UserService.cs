@@ -23,13 +23,21 @@ namespace AdBoard
             throw new NotImplementedException();
         }
 
-        public Task<string> Login(string Login, string Password, CancellationToken cancellation)
+        public async Task<string> Login(string Login, string Password, CancellationToken cancellation)
         {
+            //TODO
+            return "secretKey";
+
+
             throw new NotImplementedException();
         }
 
-        public Task<int> Register(string Login, string Password, CancellationToken cancellation)
+        public async Task<int> Register(string Login, string Password, CancellationToken cancellation)
         {
+
+            //TODO
+            return 1;
+
             throw new NotImplementedException();
         }
     }

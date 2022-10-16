@@ -1,4 +1,4 @@
-﻿using AdBoard.AppServices.User.Services;
+﻿using AdBoard.AppServices.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdBoard.Api.Controllers
@@ -18,5 +18,25 @@ namespace AdBoard.Api.Controllers
         {
             _userService = userService;
         }
+
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Register(string login, string password, CancellationToken cancellation)
+        {
+            var user = await _userService.Register(login, password, cancellation);
+
+            return Created("", new { });
+        }
+
+
+        [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Login(string login, string password, CancellationToken cancellation)
+        {
+            var token = await _userService.Login(login, password, cancellation);
+
+            return Ok(token);
+        }
+
     }
 }
