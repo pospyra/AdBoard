@@ -9,7 +9,7 @@ namespace SelectedAd.Domain
     /// <summary>
     /// Пользователь.
     /// </summary>
-    public class User
+    public class Users
     {
         /// <summary>
         /// Идентификтаор пользователя
@@ -34,7 +34,7 @@ namespace SelectedAd.Domain
         /// <summary>
         /// Номер телефона
         /// </summary>
-        public string Number { get; set; }
+        public string? Number { get; set; }
 
         /// <summary>
         /// Email Пользователя.
@@ -46,6 +46,10 @@ namespace SelectedAd.Domain
         /// </summary>
         public string Region {get; set; }
 
+        /// <summary>
+        /// Дата регистрации
+        /// </summary>
+        public DateTime CreateDate { get; set; }
 
     }
 }

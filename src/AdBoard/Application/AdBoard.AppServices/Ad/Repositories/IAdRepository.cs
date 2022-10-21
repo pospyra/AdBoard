@@ -1,4 +1,5 @@
 ﻿using SelectedAd.Contracts;
+using SelectedAd.Domain;
 
 namespace AdBoard.AppServices.Ad.Repositories
 {
@@ -23,5 +24,32 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="cancellation">Отмена операции</param>
         /// <returns>Коллекция элементов <see cref="AdDto"/>.</returns>
         Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request, CancellationToken cancellation);
+
+        /// <summary>
+        /// Добавляет объявление
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        public Task AddAsync(Ads model);
+
+        /// <summary>
+        /// Удаляет объявление из избранных
+        /// </summary>
+        /// <param name="id">Идентификтор позиции Избранных пользователя</param>
+        /// <param name="cancellation">Отмена операции</param>
+        Task DeleteAsync(Guid id, CancellationToken cancellation);
+
+        /// <summary>
+        /// Редактирует объявление
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="adName"></param>
+        /// <param name="category"></param>
+        /// <param name="description"></param>
+        /// <param name="price"></param>
+        /// <param name="possibleOfDelivery"></param>
+        /// <param name="dateOfChange"></param>
+        Task EditAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery);
     }
 }

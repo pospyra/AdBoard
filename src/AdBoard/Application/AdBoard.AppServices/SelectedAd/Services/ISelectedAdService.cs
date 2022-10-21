@@ -13,6 +13,14 @@ namespace AdBoard.AppServices.SelectedAd.Services
     public interface ISelectedAdService 
     {
         /// <summary>
+        /// Добавляет вкладку с Избранными объявлениями
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<Guid> CreateAsync(CancellationToken cancellation);
+
+        /// <summary>
         /// Возвращет позиции избранных объявлений.
         /// </summary>
         /// <returns></returns>

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 {
-    public class AdConfiguration : IEntityTypeConfiguration<Domain.Ad>
+    public class AdConfiguration : IEntityTypeConfiguration<Domain.Ads>
     {
-        public void Configure(EntityTypeBuilder<Domain.Ad> builder)
+        public void Configure(EntityTypeBuilder<Domain.Ads> builder)
         {
             builder.ToTable("Ads");
 

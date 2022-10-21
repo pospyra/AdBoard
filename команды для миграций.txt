@@ -1,0 +1,5 @@
+cd .\src\AdBoard\Infrastructure\AdBoard.Migrations
+
+dotnet ef database update
+
+dotnet ef migrations add 

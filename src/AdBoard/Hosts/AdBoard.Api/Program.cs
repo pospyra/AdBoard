@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using System.Text;
+using AdBoard.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,37 +17,8 @@ builder.Services.AddServices();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "AdBoard.Api", Version = "v1" });
-    options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory,
-         $"{typeof(SelectedAdDto).Assembly.GetName().Name}.xml")));
-    options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory, "Documentation.xml")));
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "JWT Autorization header using the Bearer scheme",
-        Name = "Autorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = JwtBearerDefaults.AuthenticationScheme
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
-    {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            },
-            Scheme = "oauth2",
-            Name = "Bearer",
-            In = ParameterLocation.Header,
-        },
-        new List<string>()
-        }
-    });
-});
+
+builder.Services.AddSwaggerModule();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
@@ -54,7 +26,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         //TODO
         var secretKey = "secretKey1111111111111111111111111";
 
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+        options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,

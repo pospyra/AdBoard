@@ -1,6 +1,7 @@
 ﻿using SelectedAd.Contracts;
+using SelectedAd.Domain;
 
-namespace AdBoard.AppServices.SelectedAd.Repositories
+namespace AdBoard.AppServices
 {
     /// <summary>
     /// Работа с избранными объявлениями.
@@ -16,6 +17,13 @@ namespace AdBoard.AppServices.SelectedAd.Repositories
         Task UpdateQuantityAsync(Guid id,int quantity, CancellationToken cancellation);
 
         /// <summary>
+        /// Возвращает позиции избранных объявлений
+        /// </summary>
+        /// <param name="cancellation">Отмена операции</param>
+        /// <returns>Позиции элементов <see cref="SelectedAdDto"/></returns>
+        Task<IReadOnlyCollection<SelectedAdDto>> GetAllAsync(CancellationToken cancellation);
+
+        /// <summary>
         /// Удаляет объявление из избранных
         /// </summary>
         /// <param name="id">Идентификтор позиции Избранных пользователя</param>
@@ -23,10 +31,11 @@ namespace AdBoard.AppServices.SelectedAd.Repositories
         Task DeleteAsync(Guid id, CancellationToken cancellation);
 
         /// <summary>
-        /// Возвращает позиции избранных объявлений
+        /// Создает вкладку с Избранными объявлениями
         /// </summary>
-        /// <param name="cancellation">Отмена операции</param>
-        /// <returns>Позиции элементов <see cref="SelectedAdDto"/></returns>
-        Task<IReadOnlyCollection<SelectedAdDto>> GetAllAsync(CancellationToken cancellation);
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<Guid> CreateSelectedAdAsync(CancellationToken cancellation);
+
     }
 }

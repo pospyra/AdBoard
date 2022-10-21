@@ -10,10 +10,8 @@ namespace AdBoard.Api.Controllers
   /// <summary>
   /// Работа с Избранными объявлениями.
   /// </summary>
-
     [ApiController]
-    [Authorize]
-
+    [AllowAnonymous]
     [Route("v1/[controller]")]
 
     public class SelectedAdController : ControllerBase
@@ -25,19 +23,32 @@ namespace AdBoard.Api.Controllers
             _selectedAdService = selectedAdService;
         }
 
-        public SelectedAdController()
-        { 
+        /// <summary>
+        /// Создает вкладку Избранные объявления
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAdDto>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> PostAsync(CancellationToken cancellation)
+        {
+            var result = await _selectedAdService.GetAsync(cancellation);
+
+            return Ok(result);
         }
+
         /// <summary>
         /// Возвращает позиции избранных объявлений
         /// </summary>
-        /// <returns>Коллекция элементов <see cref="SelectedAd.Contracts.SelectedAdDto"/> </returns>
+        /// <returns>Коллекция элементов <see cref="SelectedAdDto"/> </returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAd.Contracts.SelectedAdDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAdDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAsync( CancellationToken cancellation)
         {
             var result = await _selectedAdService.GetAsync(cancellation);
-            return Ok(result);        }
+
+            return Ok(result);      
+        }
 
         /// <summary>
         /// Обновляет количество избранных объявлений.

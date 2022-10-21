@@ -28,6 +28,6 @@
         /// <summary>
         /// Объявление.
         /// </summary>
-        public Ad Ad { get; set; } 
+        public Ads Ad { get; set; } 
     }
 }

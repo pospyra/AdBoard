@@ -1,4 +1,5 @@
-﻿using AdBoard.AppServices.SelectedAd.Repositories;
+﻿using AdBoard.AppServices;
+using AdBoard.AppServices.SelectedAd;
 using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using SelectedAd.Contracts;
@@ -18,6 +19,15 @@ namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
         public SelectedAdRepository(IRepository<SelectedAds> repository)
         {
             _repository = repository;
+        }
+
+        public async Task<Guid> CreateSelectedAdAsync(CancellationToken cancellation)
+        {
+            var selectedAd = new SelectedAds();
+
+            await _repository.AddAsync(selectedAd);
+
+            return selectedAd.Id;
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellation)

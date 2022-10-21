@@ -3,7 +3,7 @@
     /// <summary>
     /// Объявление.
     /// </summary>
-    public class Ad
+    public class Ads
     {
         /// <summary>
         /// Идентификатор.
@@ -39,6 +39,11 @@
         /// Возомжность доставки
         /// </summary>
         public bool PossibleOfDelivery { get; set; }
+
+        /// <summary>
+        /// Дата создания объявления
+        /// </summary>
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// Коллекция элементов Избранных.

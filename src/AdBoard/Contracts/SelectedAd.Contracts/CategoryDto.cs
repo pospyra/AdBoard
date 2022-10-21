@@ -19,6 +19,6 @@ namespace SelectedAd.Contracts
         /// <summary>
         /// Наименование категории.
         /// </summary>
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
     }
 }

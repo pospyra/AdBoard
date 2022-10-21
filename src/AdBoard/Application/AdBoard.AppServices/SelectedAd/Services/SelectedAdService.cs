@@ -1,5 +1,6 @@
-﻿using AdBoard.AppServices.SelectedAd.Repositories;
+﻿using AdBoard.AppServices.SelectedAd;
 using SelectedAd.Contracts;
+using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,12 @@ namespace AdBoard.AppServices.SelectedAd.Services
         public SelectedAdService(ISelectedAdRepository selectedAdRepository)
         {
             _selectedAdRepository = selectedAdRepository;
+        }
+
+        ///<inheritdoc/>
+        public Task<Guid> CreateAsync(CancellationToken cancellation)
+        {
+            return _selectedAdRepository.CreateSelectedAdAsync(cancellation);
         }
 
         ///<inheritdoc/>

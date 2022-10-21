@@ -7,12 +7,14 @@ using SelectedAd.DataAccess.EntityConfiguration.Ad;
 using SelectedAd.DataAccess.Interface;
 using AdBoard.AppServices.Ad.Services;
 using AdBoard.AppServices.Services;
-using AdBoard.AppServices.SelectedAd.Repositories;
+using AdBoard.AppServices;
 using SelectedAd.DataAccess.EntityConfiguration.SelectedAd;
 using AdBoard.AppServices.SelectedAd.Services;
 using AdBoard.AppServices.User.IRepository;
 using AdBoard.AppServices.User;
 using SelectedAd.DataAccess.EntityConfiguration.User;
+using AdBoard.AppServices.Category;
+using SelectedAd.DataAccess.EntityConfiguration.Categories;
 
 namespace AdBoard.Registrar
 {
@@ -42,6 +44,11 @@ namespace AdBoard.Registrar
             // Регистрация Пользователя
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
+
+            // Регистрация Категории
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+
             return services;
         }
     }

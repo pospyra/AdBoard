@@ -21,7 +21,6 @@ namespace SelectedAd.Contracts
         /// </summary>
         public string AdName { get; set; }
 
-
         /// <summary>
         /// Идентификатор Категории объявления.
         /// </summary>
@@ -36,7 +35,6 @@ namespace SelectedAd.Contracts
         /// Цена.
         /// </summary>
         public decimal Price { get; set; }
-
 
         /// <summary>
         /// Возомжность доставки
