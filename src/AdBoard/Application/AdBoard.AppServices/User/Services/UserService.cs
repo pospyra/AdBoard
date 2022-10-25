@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using AdBoard.AppServices;
+using System.Linq.Expressions;
+using AdBoard.AppServices.Ad.Repositories;
 
 namespace AdBoard
 {
@@ -20,11 +22,6 @@ namespace AdBoard
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-        }
-
-        public Task<Users> GetCurrent(CancellationToken cancellation)
-        {
-            throw new NotImplementedException();
         }
 
         public Task DeleteAsync(Guid id, CancellationToken cancellation)
@@ -98,6 +95,8 @@ namespace AdBoard
         {
             return _userRepository.EditAsync(id, name, login, password, number, email, region);
         }
+
+       
     }
 
 }

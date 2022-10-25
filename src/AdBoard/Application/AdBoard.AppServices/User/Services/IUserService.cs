@@ -1,5 +1,6 @@
 ﻿using SelectedAd.Contracts;
 using SelectedAd.Domain;
+using System.Linq.Expressions;
 
 namespace AdBoard { 
 
@@ -8,6 +9,7 @@ namespace AdBoard {
     /// </summary>
     public interface IUserService
     {
+
         /// <summary>
         /// Регистрация пользователя.
         /// </summary>
@@ -26,19 +28,12 @@ namespace AdBoard {
         /// <returns>Токен.</returns>
         Task<string> Login(string login, string password, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Получить текущего пользователя
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<Users> GetCurrent(CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Удалить Пользователя
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellation"></param>
-        /// <returns></returns>
+            /// <summary>
+            /// Удалить Пользователя
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="cancellation"></param>
+            /// <returns></returns>
         Task DeleteAsync(Guid id, CancellationToken cancellation);
 
         /// <summary>
@@ -53,5 +48,6 @@ namespace AdBoard {
         /// <param name="region"></param>
         /// <returns></returns>
         Task EditAsync(Guid id, string name, string login, string password, string number, string email, string region);
+
     }
 }

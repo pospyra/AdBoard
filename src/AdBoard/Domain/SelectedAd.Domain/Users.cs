@@ -51,5 +51,10 @@ namespace SelectedAd.Domain
         /// </summary>
         public DateTime CreateDate { get; set; }
 
+        /// <summary>
+        /// Коллекция элементов бъявлений
+        /// </summary>
+        public ICollection<Ads> Ads { get; set; }
+
     }
 }

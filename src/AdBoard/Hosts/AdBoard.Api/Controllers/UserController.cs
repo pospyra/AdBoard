@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
+using SelectedAd.Domain;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace AdBoard.Api.Controllers
@@ -21,6 +23,21 @@ namespace AdBoard.Api.Controllers
         {
             _userService = userService;
         }
+        /*
+        /// <summary>
+        /// Возвращает Пользователей по фильтру
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll(Expression<Func<Users, bool>> predicate, CancellationToken cancellation)
+        {
+            var result = await _userService.FindWhere(predicate, cancellation);
+
+            return Ok(result);
+        }*/
 
         /// <summary>
         /// Регистрирует Пользователя

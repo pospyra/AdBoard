@@ -17,12 +17,11 @@ namespace SelectedAd.DataAccess.EntityConfiguration.User
             builder.Property(b => b.Login).HasMaxLength(30);
 
             builder.Property(b => b.Password).HasMaxLength(100);
-
-            /*
+            
             //связь бд
-            builder.HasMany(p => p.SelectedAds)// связь один ко многим. много избранных(так как много пользователей)
-                .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)
-                .HasForeignKey(s => s.AdId);//связь по внешнему ключу*/
+            builder.HasMany(p => p.Ads)// связь один ко многим. много объяалений
+                .WithOne(s => s.Users)//у категории - есть много объявлений
+                .HasForeignKey(s => s.UsersId);//связь по внешнему ключу
         }
     }
 }

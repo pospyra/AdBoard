@@ -22,6 +22,11 @@
         public Guid CategoryId { get; set; }
 
         /// <summary>
+        /// Идентификатор Пользователя
+        /// </summary>
+        public Guid? UsersId { get; set; }
+
+        /// <summary>
         /// Описание.
         /// </summary>
         public string Description { get; set; }
@@ -54,5 +59,10 @@
         /// Категория
         /// </summary>
         public Categories Category { get; set; }
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public Users Users { get; set; }
     }
 }

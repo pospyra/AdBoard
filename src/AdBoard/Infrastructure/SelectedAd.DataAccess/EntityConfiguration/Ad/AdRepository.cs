@@ -9,7 +9,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
     /// <inheritdoc />
     public class AdRepository : IAdRepository
     {
-        private readonly IRepository<Domain.Ads> _repository;
+        private readonly IRepository<Ads> _repository;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="cref = "AdRepository"/>
@@ -50,8 +50,6 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             await _repository.UpdateAsync(existingAd);
         }
-
-
 
         /// <inheritdoc />
         public async Task<IReadOnlyCollection<AdDto>> GetAll(int take, int skip, CancellationToken cancellation)

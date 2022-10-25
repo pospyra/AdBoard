@@ -1,4 +1,5 @@
-﻿using SelectedAd.Domain;
+﻿using SelectedAd.Contracts;
+using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,12 @@ namespace AdBoard.AppServices.User.IRepository
 {
     public interface IUserRepository 
     {
+        /// <summary>
+        /// Получить пользователя по фильтру
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="cancallation"></param>
+        /// <returns></returns>
         Task<Users> FindWhere(Expression<Func<Users, bool>> predicate, CancellationToken cancallation);
 
         /// <summary>

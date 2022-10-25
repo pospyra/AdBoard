@@ -24,8 +24,7 @@ namespace AdBoard.Api.Controllers
         {
             _adService = adService;
         }
-
-
+        
         /// <summary>
         /// Возвращает позиции всех объявлений.
         /// </summary>
@@ -50,7 +49,6 @@ namespace AdBoard.Api.Controllers
         /// <param name="skip"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-
         [HttpPost]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateAdAsync(string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
@@ -70,7 +68,6 @@ namespace AdBoard.Api.Controllers
         /// <param name="price"></param>
         /// <param name="possibleOfDelivery"></param>
         /// <returns></returns>
-
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
@@ -95,5 +92,17 @@ namespace AdBoard.Api.Controllers
             await _adService.DeleteAsync(id, cancellation);
             return NoContent();
         }
+
+                /*
+        [Route("api/[controller]/[action]")]
+        [AllowAnonymous]
+        [HttpGet]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllFilter(AdFilterRequest request, CancellationToken cancellation)
+        {
+            var result = await _adService.GetAllFiltered(request, cancellation);
+
+            return Ok(result);
+        }*/
     }
 }       

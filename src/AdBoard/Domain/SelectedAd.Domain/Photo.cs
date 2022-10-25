@@ -13,6 +13,9 @@ namespace SelectedAd.Domain
         /// </summary>
         public Guid Id { get; set; }
 
-
+        /// <summary>
+        /// Адрес Фото
+        /// </summary>
+        public byte LinkPhoto { get; set; }
     }
 }

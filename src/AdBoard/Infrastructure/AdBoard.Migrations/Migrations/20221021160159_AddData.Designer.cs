@@ -3,6 +3,7 @@ using System;
 using AdBoard.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdBoard.Migrations.Migrations
 {
     [DbContext(typeof(MigrationsDbContext))]
-    partial class MigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221021160159_AddData")]
+    partial class AddData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,15 +52,9 @@ namespace AdBoard.Migrations.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid?>("UsersId")
-                        .IsRequired()
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UsersId");
 
                     b.ToTable("Ads", (string)null);
                 });
@@ -149,15 +145,7 @@ namespace AdBoard.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SelectedAd.Domain.Users", "Users")
-                        .WithMany("Ads")
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("SelectedAd.Domain.SelectedAds", b =>
@@ -179,11 +167,6 @@ namespace AdBoard.Migrations.Migrations
             modelBuilder.Entity("SelectedAd.Domain.Categories", b =>
                 {
                     b.Navigation("Ad");
-                });
-
-            modelBuilder.Entity("SelectedAd.Domain.Users", b =>
-                {
-                    b.Navigation("Ads");
                 });
 #pragma warning restore 612, 618
         }
