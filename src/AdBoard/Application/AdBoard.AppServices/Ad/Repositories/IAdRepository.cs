@@ -15,7 +15,14 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="skip">Сколько пропустить</param>
         /// <returns>>Коллекция элементов <see cref="AdDto"/></returns>
         Task<IReadOnlyCollection<AdDto>> GetAll(int take, int skip, CancellationToken cancellationp);
-        
+
+        /// <summary>
+        /// Возвращает объявление по Идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="cancallation"></param>
+        /// <returns></returns>
+        Task<Ads> FindById(Guid id, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращает объявления по фильтру

@@ -33,7 +33,7 @@ namespace AdBoard.AppServices.Ad.Services
         /// </summary>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task<Guid> CreateAdAsync( string adName, Guid Category, string description, decimal price, bool possibleOfDelivery);
+        Task<Guid> CreateAdAsync( string adName, Guid categoryId, string description, decimal price, bool possibleOfDelivery, Guid userId);
 
         /// <summary>
         /// Удаляет объявление

@@ -11,9 +11,10 @@ namespace AdBoard.Api.Controllers
     /// <summary>
     /// Работа с Пользователями
     /// </summary>
+    [Route("v1/[controller]")]
     [ApiController]
     [AllowAnonymous]
-    [Route("v1/[controller]")]
+    //[Route("v1/[controller]")]
 
     public class UserController : ControllerBase
     {
@@ -60,7 +61,7 @@ namespace AdBoard.Api.Controllers
         }
 
         /// <summary>
-        /// Авторизирует пользователя
+        /// Залогинить пользователя
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>

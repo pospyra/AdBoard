@@ -15,7 +15,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
         /// Инициализирует экземпляр <see cref="cref = "AdRepository"/>
         /// </summary>
         /// <param name="repository">Базовый репозиторий</param>
-        public AdRepository(IRepository<Domain.Ads> repository)
+        public AdRepository(IRepository<Ads> repository)
         {
             _repository = repository;
         }
@@ -26,6 +26,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             return _repository.AddAsync(model);
         }
 
+        ///<inheritdoc/>
         public async Task DeleteAsync(Guid id, CancellationToken cancellation)
         {
             var existingAd = await _repository.GetByIdAsync(id);
@@ -33,6 +34,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             await  _repository.DeleteAsync(existingAd);
         }
 
+        ///<inheritdoc/>
         public async Task EditAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
         {
             var existingAd = await _repository.GetByIdAsync(id);
@@ -64,7 +66,13 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 })
                 .Take(take).Skip(skip).ToListAsync(cancellation);
         }
-        
+
+        public async Task<Ads> FindById(Guid id, CancellationToken cancellation)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        ///<inheritdoc/>
         public async Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request, CancellationToken cancellation)
         {
             var query = _repository.GetAll();

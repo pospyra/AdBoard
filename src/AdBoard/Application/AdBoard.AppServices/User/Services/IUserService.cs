@@ -49,5 +49,11 @@ namespace AdBoard {
         /// <returns></returns>
         Task EditAsync(Guid id, string name, string login, string password, string number, string email, string region);
 
+        /// <summary>
+        /// Получить текущего Пользователя
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<Users> GetCurrent(CancellationToken cancellation);
     }
 }

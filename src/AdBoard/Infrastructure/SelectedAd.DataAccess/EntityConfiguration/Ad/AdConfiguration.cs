@@ -16,10 +16,15 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             builder.Property(b => b.Description).HasMaxLength(2000);
 
-            //связь бд
+            //Ad_SelectedAds
             builder.HasMany(p => p.SelectedAds)// связь один ко многим. много избранных(так как много пользователей)
                 .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)
                 .HasForeignKey(s => s.AdId);//связь по внешнему ключу
+
+            //Ad_Photos
+            builder.HasMany(p => p.Photo)
+                .WithOne(s => s.Ad)
+                .HasForeignKey(s => s.AdId);
         }
     }
 }

@@ -63,6 +63,18 @@ namespace SelectedAd.DataAccess.EntityConfiguration.User
             await _repository.DeleteAsync(existingAd);
         }
 
+        /// <summary>
+        /// Редактировать данные Пользователя
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="number"></param>
+        /// <param name="email"></param>
+        /// <param name="region"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public async Task EditAsync(Guid id, string name, string login, string password, string number, string email, string region)
         {
             var existingAd = await _repository.GetByIdAsync(id);
@@ -81,8 +93,16 @@ namespace SelectedAd.DataAccess.EntityConfiguration.User
             await _repository.UpdateAsync(existingAd);
         }
 
-
-
+        /// <summary>
+        /// Найти Пользователя по Идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancallation"></param>
+        /// <returns></returns>
+        public async Task<Users> FindById(Guid id, CancellationToken cancallation)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
 
         /*
         /// <inheritdoc />

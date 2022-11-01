@@ -27,7 +27,7 @@ namespace SelectedAd.Domain
         public string Login { get; set; }
 
         /// <summary>
-        /// ПАРОЛЬ ТУТ ХРАНИТСЯ НЕ БУДЕТ 
+        /// Пароль Пользователя
         /// </summary>
         public string Password { get; set; }
 
@@ -55,6 +55,11 @@ namespace SelectedAd.Domain
         /// Коллекция элементов бъявлений
         /// </summary>
         public ICollection<Ads> Ads { get; set; }
+
+        /// <summary>
+        /// Избранные Пользователя
+        /// </summary>
+        public SelectedAds? SelectedAd { get; set; }
 
     }
 }

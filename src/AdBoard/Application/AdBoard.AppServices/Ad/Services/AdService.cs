@@ -12,23 +12,28 @@ namespace AdBoard.AppServices.Ad.Services
 {
     public class AdService : IAdService
     {
-        private readonly IAdRepository _adRepository;    
+        private readonly IAdRepository _adRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AdService(IAdRepository adRepository)
+        public AdService(IAdRepository adRepository, IUserRepository userRepository)
         {
             _adRepository = adRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<Guid> CreateAdAsync(string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
+        ///<inheritdoc/>
+        public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, string description, decimal price, bool possibleOfDelivery, Guid userId)
         {
             var ad = new Ads
             {
                 AdName = adName,
-                CategoryId = category,
+                CategoryId = categoryId,
                 Description = description,  
                 Price = price,
                 PossibleOfDelivery = possibleOfDelivery,
-                Created = DateTime.UtcNow
+                UsersId = userId,
+                Created = DateTime.UtcNow, 
+      
             };
 
             await _adRepository.AddAsync(ad);

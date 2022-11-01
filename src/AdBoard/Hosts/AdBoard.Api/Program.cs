@@ -15,24 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddServices();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddSwaggerModule();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-    {
-        //TODO
-        var secretKey = "secretKey1111111111111111111111111";
-
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes (secretKey)) 
-        };
-    });
+builder.Services.AddAuthenticationModule(builder.Configuration);
 
 var app = builder.Build();
 
@@ -40,10 +31,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdBoard.Api v1 "));
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();

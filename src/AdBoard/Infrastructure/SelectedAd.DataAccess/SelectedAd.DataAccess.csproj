@@ -25,8 +25,4 @@
     <ProjectReference Include="..\AdBoard.Infrastructure\AdBoard.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityConfiguration\Photo\" />
-  </ItemGroup>
-
 </Project>

@@ -24,7 +24,7 @@ namespace AdBoard.AppServices
         Task<IReadOnlyCollection<SelectedAdDto>> GetAllAsync(CancellationToken cancellation);
 
         /// <summary>
-        /// Удаляет объявление из избранных
+        /// Удаляет вкладку Избранныхх
         /// </summary>
         /// <param name="id">Идентификтор позиции Избранных пользователя</param>
         /// <param name="cancellation">Отмена операции</param>
@@ -35,7 +35,30 @@ namespace AdBoard.AppServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<Guid> CreateSelectedAdAsync(CancellationToken cancellation);
+        Task AddAsync(SelectedAds model);
 
+        /// <summary>
+        /// Добавляет объявление в Избранное
+        /// </summary>
+        /// <param name="cancelToken"></param>
+        /// <returns></returns>
+        // Task AddAdAsync( Guid id, Ads ads, CancellationToken cancelToken);
+
+        /// <summary>
+        /// Удаляет элемент из Избранных
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <param name="ad"></param>
+        /// <returns></returns>
+         Task<SelectedAds> RemoveItemFromSelectedAsync(Guid selectedId, Guid adId, CancellationToken cancellation);
+
+        /// <summary>
+        /// Добавить объявление в Избранные
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <param name="adId"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<SelectedAds> AddAdToSelected(Guid selectedId, Guid adId, CancellationToken cancellation);
     }
 }

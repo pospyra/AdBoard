@@ -15,6 +15,7 @@ using AdBoard.AppServices.User;
 using SelectedAd.DataAccess.EntityConfiguration.User;
 using AdBoard.AppServices.Category;
 using SelectedAd.DataAccess.EntityConfiguration.Categories;
+using AdBoard.Infrastructure.Identity;
 
 namespace AdBoard.Registrar
 {
@@ -48,6 +49,8 @@ namespace AdBoard.Registrar
             // Регистрация Категории
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IClaimsAccessor, HttpContextClaimsAccessor>();
 
             return services;
         }

@@ -6,28 +6,35 @@
     public class SelectedAds 
     {
         /// <summary>
-        /// Идентификатор.
+        /// Колллекция элементов Избранных
+        /// </summary>
+        public List <ItemSelectedAd> Ads { get; set; } = new List<ItemSelectedAd>();
+
+        /// <summary>
+        /// Идентификатор Избранных.
         /// </summary>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Идентификатор объявления.
-        /// </summary>
-        public Guid AdId { get; set; }
-
-        /// <summary>
-        /// Цена.
-        /// </summary>
-        public decimal Price { get; set; }
-
-        /// <summary>
-        /// Количество объявлений.
-        /// </summary>
         public int Quantity { get; set; }
+
+        /// <summary>
+        /// Идентификатор Пользователя
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Идентификатор Объявления
+        /// </summary>
+        public Guid? AdId { get; set; }
 
         /// <summary>
         /// Объявление.
         /// </summary>
-        public Ads Ad { get; set; } 
+        public Ads Ad { get; set; }
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public Users? User { get; set; }
     }
 }

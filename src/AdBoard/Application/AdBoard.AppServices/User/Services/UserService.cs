@@ -12,16 +12,23 @@ using Microsoft.IdentityModel.Tokens;
 using AdBoard.AppServices;
 using System.Linq.Expressions;
 using AdBoard.AppServices.Ad.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace AdBoard
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
+        private readonly IClaimsAccessor _claimAccessor;
+        private readonly IConfiguration _configuration;
+        public UserService(
+            IUserRepository userRepository, 
+            IClaimsAccessor claimAccessor,
+            IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _claimAccessor = claimAccessor;
+            _configuration = configuration;
         }
 
         public Task DeleteAsync(Guid id, CancellationToken cancellation)
@@ -36,7 +43,7 @@ namespace AdBoard
 
             if (existingUser == null)
             {
-                throw new Exception($"Пользователz с логином '{login}' не существует");
+                throw new Exception($"Пользователь с логином '{login}' не существует");
             }
 
             if (!existingUser.Password.Equals(password))
@@ -47,11 +54,11 @@ namespace AdBoard
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, existingUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, existingUser.Login),
-                new Claim(ClaimTypes.Email, existingUser.Email),
+                new Claim(ClaimTypes.Name, existingUser.Login)
+               // new Claim(ClaimTypes.Email, existingUser.Email)
             };
 
-            var securatyKey = "secretKeysecretKeysecretKeysecretKeysecretKeysecretKey";
+            var secretKey = _configuration["Token:SecretKey"];
 
             var token = new JwtSecurityToken
                 (
@@ -59,12 +66,14 @@ namespace AdBoard
                 expires: DateTime.UtcNow.AddDays(1),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securatyKey)),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                     SecurityAlgorithms.HmacSha256
                     )
                 );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var result = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return result;
         }
 
         public async Task<Guid> Register(string login, string name, string password, string number, string email, string region, CancellationToken cancellation)
@@ -96,7 +105,26 @@ namespace AdBoard
             return _userRepository.EditAsync(id, name, login, password, number, email, region);
         }
 
-       
+        public async Task<Users> GetCurrent(CancellationToken cancellation)
+        {
+            var claim = await _claimAccessor.GetClaims(cancellation);
+            var claimId = claim.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrWhiteSpace(claimId))
+            {
+                return null;
+            }
+
+            var id = Guid.Parse(claimId);
+            var user = await _userRepository.FindById(id, cancellation);
+
+            if (user == null)
+            {
+                throw new Exception($"Не найдент пользователь с идентификаторром {id}");
+            }
+
+            return user;
+        }
     }
 
 }

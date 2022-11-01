@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SelectedAd.Contracts
 {
+    /// <summary>
+    /// Модель представления категории объявлений.
+    /// </summary>
     public class CategoryDto
     {
-        /// <summary>
-        /// Модель представления категории объявлений.
-        /// </summary>
         /// <summary>
         /// Идентификатор.
         /// </summary>

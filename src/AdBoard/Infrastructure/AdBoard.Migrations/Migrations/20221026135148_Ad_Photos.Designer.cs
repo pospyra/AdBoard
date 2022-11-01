@@ -3,6 +3,7 @@ using System;
 using AdBoard.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdBoard.Migrations.Migrations
 {
     [DbContext(typeof(MigrationsDbContext))]
-    partial class MigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221026135148_Ad_Photos")]
+    partial class Ad_Photos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,27 +84,6 @@ namespace AdBoard.Migrations.Migrations
                     b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("SelectedAd.Domain.ItemSelectedAd", b =>
-                {
-                    b.Property<Guid>("SelectedId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AdId")
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int?>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SelectedId");
-
-                    b.HasIndex("AdId");
-
-                    b.ToTable("ItemSelectedAd", (string)null);
-                });
-
             modelBuilder.Entity("SelectedAd.Domain.Photo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -133,22 +114,18 @@ namespace AdBoard.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("AdId")
-                        .IsRequired()
+                    b.Property<Guid>("AdId")
                         .HasColumnType("uuid");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AdId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("SelectedAds", (string)null);
                 });
@@ -212,25 +189,6 @@ namespace AdBoard.Migrations.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("SelectedAd.Domain.ItemSelectedAd", b =>
-                {
-                    b.HasOne("SelectedAd.Domain.Ads", "Ad")
-                        .WithMany()
-                        .HasForeignKey("AdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SelectedAd.Domain.SelectedAds", "SelectedAds")
-                        .WithMany("Ads")
-                        .HasForeignKey("SelectedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ad");
-
-                    b.Navigation("SelectedAds");
-                });
-
             modelBuilder.Entity("SelectedAd.Domain.Photo", b =>
                 {
                     b.HasOne("SelectedAd.Domain.Ads", "Ad")
@@ -250,15 +208,7 @@ namespace AdBoard.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SelectedAd.Domain.Users", "User")
-                        .WithOne("SelectedAd")
-                        .HasForeignKey("SelectedAd.Domain.SelectedAds", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Ad");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SelectedAd.Domain.Ads", b =>
@@ -273,16 +223,9 @@ namespace AdBoard.Migrations.Migrations
                     b.Navigation("Ad");
                 });
 
-            modelBuilder.Entity("SelectedAd.Domain.SelectedAds", b =>
-                {
-                    b.Navigation("Ads");
-                });
-
             modelBuilder.Entity("SelectedAd.Domain.Users", b =>
                 {
                     b.Navigation("Ads");
-
-                    b.Navigation("SelectedAd");
                 });
 #pragma warning restore 612, 618
         }

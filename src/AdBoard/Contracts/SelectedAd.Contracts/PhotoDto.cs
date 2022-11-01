@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelectedAd.Domain
+namespace SelectedAd.Contracts
 {
-    public class Photo
+    public class PhotoDto
     {
         /// <summary>
         /// Иденификатор фотографии.
@@ -19,18 +19,8 @@ namespace SelectedAd.Domain
         public byte[] LinkPhoto { get; set; }
 
         /// <summary>
-        /// Mine type Изображения
+        /// Mine type Изображение
         /// </summary>
         public string ImageMimeType { get; set; }
-
-        /// <summary>
-        /// Идентификатор Объявления
-        /// </summary>
-        public Guid AdId { get; set; }
-
-        /// <summary>
-        /// Объявление
-        /// </summary>
-        public Ads Ad { get; set; }
     }
 }

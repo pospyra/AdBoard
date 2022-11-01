@@ -14,7 +14,6 @@
         /// Наименование объявления.
         /// </summary>
         public string AdName { get; set; }
-
         
         /// <summary>
         /// Идентификатор Категории объявления.
@@ -36,9 +35,10 @@
         /// </summary>
         public decimal Price { get; set; }
 
-        //фото
-
-        //время и дата отправки объявления
+        /// <summary>
+        /// Идентификатор фото объявления
+        /// </summary>
+        public Guid? PgotoId { get; set; }
 
         /// <summary>
         /// Возомжность доставки
@@ -50,10 +50,16 @@
         /// </summary>
         public DateTime Created { get; set; }
 
+
         /// <summary>
         /// Коллекция элементов Избранных.
         /// </summary>
-        public ICollection<SelectedAds> SelectedAds { get; set; }
+        public ICollection<SelectedAds>? SelectedAds { get; set; }
+
+        /// <summary>
+        /// Коллекция фото
+        /// </summary>
+        public ICollection<Photo> Photo { get; set; }
 
         /// <summary>
         /// Категория

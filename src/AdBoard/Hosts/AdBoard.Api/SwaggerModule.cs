@@ -22,39 +22,48 @@ namespace AdBoard.Api
     /// </summary>
     public static class SwaggerModule
     {
-        public static IServiceCollection AddSwaggerModule(this IServiceCollection services) {
+        public static IServiceCollection AddSwaggerModule(this IServiceCollection services) 
+        {
             services.AddSwaggerGen(options =>
             {
+                options.CustomSchemaIds(type => type.FullName.Replace("+", "_"));
                 options.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "AdBoard.Api", Version = "v1" });
                 options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory,
                      $"{typeof(SelectedAdDto).Assembly.GetName().Name}.xml")));
                 options.IncludeXmlComments(Path.Combine(Path.Combine(AppContext.BaseDirectory, "Documentation.xml")));
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Autorization header using the Bearer scheme",
-                    Name = "Autorization",
+                    Description = @"JWT Authorization header using the Bearer scheme.  
+                        Enter 'Bearer' [space] and then your token in the text input below.
+                        Example: 'Bearer secretKey'",
+                    Name = "Authorization",            
+                   // Scheme = "Bearer",
+                  //  BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = JwtBearerDefaults.AuthenticationScheme
                 });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
-    {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            },
-            Scheme = "oauth2",
-            Name = "Bearer",
-            In = ParameterLocation.Header,
-        },
-        new List<string>()
-        }
-    });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                       // new string[] { }                  
+                        new List<string>()
+                    }
+                });
             });
             return services;
         }
-    }
-}
+    }   
+ }
+

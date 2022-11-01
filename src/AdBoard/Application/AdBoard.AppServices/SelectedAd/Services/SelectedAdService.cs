@@ -1,4 +1,5 @@
-﻿using AdBoard.AppServices.SelectedAd;
+﻿using AdBoard.AppServices.Ad.Repositories;
+using AdBoard.AppServices.SelectedAd;
 using SelectedAd.Contracts;
 using SelectedAd.Domain;
 using System;
@@ -19,10 +20,21 @@ namespace AdBoard.AppServices.SelectedAd.Services
             _selectedAdRepository = selectedAdRepository;
         }
 
-        ///<inheritdoc/>
-        public Task<Guid> CreateAsync(CancellationToken cancellation)
+        public Task AddItemSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
         {
-            return _selectedAdRepository.CreateSelectedAdAsync(cancellation);
+            return _selectedAdRepository.AddAdToSelected(selectedId, adId,cancellation);
+        }
+
+        ///<inheritdoc/>
+        public async Task<Guid> CreateSelectedAsync(CancellationToken cancellation)
+        {
+            var selected = new SelectedAds
+            {
+
+            };
+            await _selectedAdRepository.AddAsync(selected);
+
+            return selected.Id;
         }
 
         ///<inheritdoc/>
@@ -38,9 +50,16 @@ namespace AdBoard.AppServices.SelectedAd.Services
         }
 
         ///<inheritdoc/>
+        public Task RemoveItemSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
+        {
+            return _selectedAdRepository.RemoveItemFromSelectedAsync(selectedId, adId, cancellation);
+        }
+
+        ///<inheritdoc/>
         public Task UpdateQuantityAsync(Guid id, int quantity, CancellationToken cancellation)
         {
             return _selectedAdRepository.UpdateQuantityAsync(id, quantity, cancellation);
         }
+
     }
 }

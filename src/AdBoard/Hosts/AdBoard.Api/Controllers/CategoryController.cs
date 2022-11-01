@@ -1,5 +1,6 @@
 ﻿
 using AdBoard.AppServices.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
 using System.Net;
@@ -12,6 +13,7 @@ namespace AdBoard.Api.Controllers
     /// 
     [ApiController]
     [Route("v1/[controller]")]
+    [Authorize]
 
     public class CategoryController : ControllerBase
     {

@@ -10,7 +10,7 @@ namespace AdBoard.AppServices.Photos
     public interface IPhotoRepository
     {
         /// <summary>
-        /// Добавляет объявление
+        /// Добавляет фото к объявлению
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellation"></param>
@@ -18,12 +18,11 @@ namespace AdBoard.AppServices.Photos
         public Task AddPhotoAsync(Photo model);
 
         /// <summary>
-        /// Удаляет объявление из избранных
+        /// Удаляет фото к объявлению
         /// </summary>
         /// <param name="id">Идентификтор позиции Избранных пользователя</param>
         /// <param name="cancellation">Отмена операции</param>
         Task DeleteAsync(Guid id, CancellationToken cancellation);
-
 
     }
 }

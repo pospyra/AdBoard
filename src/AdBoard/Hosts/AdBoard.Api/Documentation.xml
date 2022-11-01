@@ -4,6 +4,11 @@
         <name>AdBoard.Api</name>
     </assembly>
     <members>
+        <member name="T:AdBoard.Api.AuthenticationModule">
+            <summary>
+            Модуль подключения Аутентификации
+            </summary>
+        </member>
         <member name="T:AdBoard.Api.Controllers.AdController">
             <summary>
             Работа с доской объявлений.
@@ -16,18 +21,18 @@
             <param name="take"></param>
             <param name="skip"></param>
             <param name="cancellation"></param>
-            <returns></returns>
+            <returns>Ok(result)</returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(System.String,System.Guid,System.String,System.Decimal,System.Boolean)">
+        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(System.String,System.Guid,System.String,System.Decimal,System.Boolean,System.Guid,System.Threading.CancellationToken)">
             <summary>
-            Добавляет объявление
+            Создать объявление
             </summary>
             <param name="take"></param>
             <param name="skip"></param>
             <param name="cancellation"></param>
-            <returns></returns>
+            <returns>Created("", new { })</returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.EditAdAsync(System.Guid,System.String,System.Guid,System.String,System.Decimal,System.Boolean)">
+        <member name="M:AdBoard.Api.Controllers.AdController.EditAdAsync(System.Guid,System.String,System.Guid,System.String,System.Decimal,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Редактирует объявление
             </summary>
@@ -36,7 +41,7 @@
             <param name="description"></param>
             <param name="price"></param>
             <param name="possibleOfDelivery"></param>
-            <returns></returns>
+            <returns>NoContent</returns>
         </member>
         <member name="M:AdBoard.Api.Controllers.AdController.DeleteUserAsync(System.Guid,System.Threading.CancellationToken)">
             <summary>
@@ -44,7 +49,7 @@
             </summary>
             <param name="id"></param>
             <param name="cancellation"></param>
-            <returns></returns>
+            <returns>NoContent</returns>
         </member>
         <member name="T:AdBoard.Api.Controllers.CategoryController">
             <summary>
@@ -85,10 +90,33 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
+        <member name="M:AdBoard.Api.Controllers.PhotoController.AddPhotoAsync(SelectedAd.Domain.Photo,Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>
+            Добавить фото
+            </summary>
+            <param name="photo"></param>
+            <param name="image"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.PhotoController.DeletePhoto(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Удалить фото
+            </summary>
+            <param name="id"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
         <member name="T:AdBoard.Api.Controllers.SelectedAdController">
             <summary>
             Работа с Избранными объявлениями.
             </summary>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.GetAsync(System.Threading.CancellationToken)">
+            <summary>
+            Возвращает позиции избранных объявлений
+            </summary>
+            <returns>Коллекция элементов <see cref="T:SelectedAd.Contracts.SelectedAdDto"/> </returns>
         </member>
         <member name="M:AdBoard.Api.Controllers.SelectedAdController.PostAsync(System.Threading.CancellationToken)">
             <summary>
@@ -97,22 +125,16 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.GetAsync(System.Threading.CancellationToken)">
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
             <summary>
-            Возвращает позиции избранных объявлений
+            Удаляет вкладку избранных.
             </summary>
-            <returns>Коллекция элементов <see cref="T:SelectedAd.Contracts.SelectedAdDto"/> </returns>
+            <param name="Id">Индетификатор объявления на доске</param>
         </member>
         <member name="M:AdBoard.Api.Controllers.SelectedAdController.UpdateQuantityAsync(System.Guid,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Обновляет количество избранных объявлений.
             </summary>
-        </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
-            <summary>
-            Удаляет объявление из избранных.
-            </summary>
-            <param name="Id">Индетификатор объявления на доске</param>
         </member>
         <member name="T:AdBoard.Api.Controllers.UserController">
             <summary>
@@ -134,7 +156,7 @@
         </member>
         <member name="M:AdBoard.Api.Controllers.UserController.Login(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
-            Авторизирует пользователя
+            Залогинить пользователя
             </summary>
             <param name="login"></param>
             <param name="password"></param>

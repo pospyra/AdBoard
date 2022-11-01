@@ -19,6 +19,14 @@ namespace AdBoard.AppServices.User.IRepository
         /// <param name="cancallation"></param>
         /// <returns></returns>
         Task<Users> FindWhere(Expression<Func<Users, bool>> predicate, CancellationToken cancallation);
+       
+        /// <summary>
+       ///Получить пользователя по Идентификатору 
+       /// </summary>
+       /// <param name="predicate"></param>
+       /// <param name="cancallation"></param>
+       /// <returns></returns>
+        Task<Users> FindById(Guid id, CancellationToken cancallation);
 
         /// <summary>
         /// Добавляет пользователя
