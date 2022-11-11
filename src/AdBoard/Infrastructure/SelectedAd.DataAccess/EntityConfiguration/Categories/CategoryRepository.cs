@@ -47,6 +47,5 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Categories
                   Name = p.Name
               }).ToListAsync(cancellation);
         }
-
     }
 }

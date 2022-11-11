@@ -26,11 +26,12 @@ namespace AdBoard.AppServices.SelectedAd.Services
         }
 
         ///<inheritdoc/>
-        public async Task<Guid> CreateSelectedAsync(CancellationToken cancellation)
+        public async Task<Guid> CreateSelectedAsync(Guid userId ,Guid adId, CancellationToken cancellation)
         {
             var selected = new SelectedAds
             {
-
+                UserId = userId,
+                AdId = adId
             };
             await _selectedAdRepository.AddAsync(selected);
 

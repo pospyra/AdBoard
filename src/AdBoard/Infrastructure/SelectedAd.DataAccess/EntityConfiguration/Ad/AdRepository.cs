@@ -96,6 +96,10 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 CategoryId = p.CategoryId,
             }).ToListAsync(cancellation);
         }
+
+       //сорировка по цене верх-вниз
+
+        //поиск по объявлениями
     }
 }
   

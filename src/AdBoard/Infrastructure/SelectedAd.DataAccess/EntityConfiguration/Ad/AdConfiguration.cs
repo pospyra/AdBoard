@@ -28,3 +28,4 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
         }
     }
 }
+ 

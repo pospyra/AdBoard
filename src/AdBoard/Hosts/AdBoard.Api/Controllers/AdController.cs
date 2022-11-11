@@ -10,11 +10,12 @@ using System.Xml.Linq;
 namespace AdBoard.Api.Controllers
 {
     /// <summary>
-    /// Работа с доской объявлений.
+    /// Работа с объявлениями.
     /// </summary>
 
     [ApiController]
     [Route("v1/[controller]")]
+    [AllowAnonymous]
 
     public class AdController : ControllerBase
     {
@@ -35,7 +36,7 @@ namespace AdBoard.Api.Controllers
         /// <param name="cancellation"></param>
         /// <returns>Ok(result)</returns>
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll(int take, int skip, CancellationToken cancellation)
         {
@@ -53,7 +54,7 @@ namespace AdBoard.Api.Controllers
         /// <returns>Created("", new { })</returns>
         //[Route("api/[controller]/[action]")]
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
         {
@@ -92,7 +93,7 @@ namespace AdBoard.Api.Controllers
         /// <param name="cancellation"></param>
         /// <returns>NoContent</returns>
         [HttpDelete]
-        [Authorize]
+       // [Authorize]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteUserAsync(Guid id, CancellationToken cancellation)

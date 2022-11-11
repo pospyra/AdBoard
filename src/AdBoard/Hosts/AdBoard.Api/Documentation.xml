@@ -118,7 +118,7 @@
             </summary>
             <returns>Коллекция элементов <see cref="T:SelectedAd.Contracts.SelectedAdDto"/> </returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.SelectedAdController.PostAsync(System.Threading.CancellationToken)">
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.PostAsync(System.Guid,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Создает вкладку Избранные объявления
             </summary>
@@ -135,6 +135,24 @@
             <summary>
             Обновляет количество избранных объявлений.
             </summary>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.AddToSelected(System.Guid,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Добавить Объявление в Избранные
+            </summary>
+            <param name="selectedId"></param>
+            <param name="adId"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.SelectedAdController.RemoveAdFromSelected(System.Guid,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Удаляет объявление из Избранных
+            </summary>
+            <param name="selectedId"></param>
+            <param name="adId"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
         </member>
         <member name="T:AdBoard.Api.Controllers.UserController">
             <summary>

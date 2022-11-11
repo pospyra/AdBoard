@@ -30,7 +30,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
         {
             var selectedAd = await _repository.GetByIdAsync(selectedId);
             if (selectedAd == null)
-                throw new InvalidOperationException($"Избранных с идентификатором {selectedId} не существует");
+                throw new InvalidOperationException($"Вкладки избранных с идентификатором {selectedId} не существует");
 
             selectedAd.Ads.Add(new Domain.ItemSelectedAd
             {
@@ -70,7 +70,8 @@ namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
                     Id = s.Id,
                     AdName = s.Ad.AdName,
                     //Price = s.Price, 
-                    Quantity = s.Quantity
+                    Quantity = s.Quantity,
+                    
                     
                 }).ToListAsync(cancellation);
         }

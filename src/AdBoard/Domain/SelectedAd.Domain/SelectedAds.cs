@@ -25,7 +25,7 @@
         /// <summary>
         /// Идентификатор Объявления
         /// </summary>
-        public Guid? AdId { get; set; }
+        public Guid AdId { get; set; }
 
         /// <summary>
         /// Объявление.

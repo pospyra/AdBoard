@@ -11,7 +11,7 @@ namespace AdBoard.Api.Controllers
     /// Работа с Избранными объявлениями.
     /// </summary>
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     [Route("v1/[controller]")]
     //[Route("v1/[controller]")]
 
@@ -51,11 +51,11 @@ namespace AdBoard.Api.Controllers
        // [Route("api/[controller]/[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAdDto>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> PostAsync(CancellationToken cancellation)
+        public async Task<IActionResult> PostAsync(Guid userId ,Guid adId, CancellationToken cancellation)
         {
             var user = await _userService.GetCurrent(cancellation);
 
-            var result = await _selectedAdService.CreateSelectedAsync(cancellation);
+            var result = await _selectedAdService.CreateSelectedAsync( userId, adId, cancellation);
 
             return Ok(result);
         }
@@ -85,7 +85,7 @@ namespace AdBoard.Api.Controllers
             return NoContent();
         }
 
-        /*
+
         /// <summary>
         /// Добавить Объявление в Избранные
         /// </summary>
@@ -93,6 +93,7 @@ namespace AdBoard.Api.Controllers
         /// <param name="adId"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
+        [Route("api/[controller]/[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(IReadOnlyCollection<SelectedAdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> AddToSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
@@ -102,11 +103,11 @@ namespace AdBoard.Api.Controllers
              await _selectedAdService.AddItemSelected(selectedId, adId, cancellation);
 
             return Ok();
-        }*/
+        }
 
 
       
-       /*
+       
         /// <summary>
         /// Удаляет объявление из Избранных
         /// </summary>
@@ -122,6 +123,6 @@ namespace AdBoard.Api.Controllers
         {
             await _selectedAdService.RemoveItemSelected( selectedId,  adId,  cancellation);
             return NoContent();
-        }*/
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace AdBoard.AppServices.SelectedAd.Services
         /// <param name="id"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task<Guid> CreateSelectedAsync(CancellationToken cancellation);
+        Task<Guid> CreateSelectedAsync(Guid userId ,Guid adId, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращет позиции избранных объявлений.
