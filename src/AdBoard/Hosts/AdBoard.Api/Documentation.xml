@@ -11,7 +11,7 @@
         </member>
         <member name="T:AdBoard.Api.Controllers.AdController">
             <summary>
-            Работа с доской объявлений.
+            Работа с объявлениями.
             </summary>
         </member>
         <member name="M:AdBoard.Api.Controllers.AdController.GetAll(System.Int32,System.Int32,System.Threading.CancellationToken)">
@@ -23,7 +23,7 @@
             <param name="cancellation"></param>
             <returns>Ok(result)</returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(System.String,System.Guid,System.String,System.Decimal,System.Boolean,System.Guid,System.Threading.CancellationToken)">
+        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(System.String,System.Guid,System.Guid,System.String,System.Decimal,System.Boolean,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Создать объявление
             </summary>

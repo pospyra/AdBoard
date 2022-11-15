@@ -36,7 +36,6 @@ namespace AdBoard.Api.Controllers
         /// <param name="cancellation"></param>
         /// <returns>Ok(result)</returns>
         [HttpGet]
-       // [Authorize]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll(int take, int skip, CancellationToken cancellation)
         {
@@ -54,13 +53,12 @@ namespace AdBoard.Api.Controllers
         /// <returns>Created("", new { })</returns>
         //[Route("api/[controller]/[action]")]
         [HttpPost]
-       // [Authorize]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
+        public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, Guid subCategory, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
         {
             var user = await _userService.GetCurrent(cancellation);
 
-            var result = await _adService.CreateAdAsync(adName, categoryId, description, price, possibleOfDelivery, userId);
+            var result = await _adService.CreateAdAsync(adName, categoryId, subCategory, description, price, possibleOfDelivery, userId);
 
             return Created("", new { });
         }

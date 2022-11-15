@@ -21,6 +21,11 @@
         public Guid CategoryId { get; set; }
 
         /// <summary>
+        /// Идентификатор Подкатгории объявления
+        /// </summary>
+        public Guid? SubCategoryId { get; set; }
+
+        /// <summary>
         /// Идентификатор Пользователя
         /// </summary>
         public Guid? UsersId { get; set; }

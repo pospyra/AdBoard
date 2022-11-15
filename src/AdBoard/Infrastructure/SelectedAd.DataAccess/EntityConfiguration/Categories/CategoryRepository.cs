@@ -2,16 +2,22 @@
 using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using SelectedAd.Contracts;
+using System;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Categories
 {
+    /// <summary>
+    /// Репозиторий для работы с Категориями и Подкатегориями
+    /// </summary>
     public class CategoryRepository : ICategoryRepository
     {
         private readonly IRepository<Domain.Categories> _repository;
+        private readonly IRepository<Domain.SubCategory> _subrepository;
 
-        public CategoryRepository(IRepository<Domain.Categories> repository)
+        public CategoryRepository(IRepository<Domain.Categories> repository, IRepository<Domain.SubCategory> subrepository)
         {
             _repository = repository;
+            _subrepository = subrepository;
         }
 
         public Task AddAsync(Domain.Categories model)
@@ -47,5 +53,19 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Categories
                   Name = p.Name
               }).ToListAsync(cancellation);
         }
+
+        /*
+        public async Task<Domain.Categories> AddSubCategoryAsync(Guid categoryId, string nameSub, Guid subId)
+        {
+            var category = _repository.GetByIdAsync(categoryId);
+                if (category == null)
+                    throw new Exception($"Категории с идетификатором {categoryId} не сущестует");
+
+            category.A
+            
+            await _repository.AddAsync(category);
+
+            return category;;
+        }*/
     }
 }

@@ -13,7 +13,7 @@ namespace AdBoard.Api.Controllers
     /// 
     [ApiController]
     [Route("v1/[controller]")]
-    [Authorize]
+    [AllowAnonymous]
 
     public class CategoryController : ControllerBase
     {

@@ -20,5 +20,15 @@ namespace SelectedAd.Contracts
         /// Наименование категории.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Идентификатор подкатегории
+        /// </summary>
+        public Guid SubCategoryId { get; set; }
+
+        /// <summary>
+        /// Наименование подкатегории
+        /// </summary>
+        public string SubCategoryName { get; set; }
     }
 }

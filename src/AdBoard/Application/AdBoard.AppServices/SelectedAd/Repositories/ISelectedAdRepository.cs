@@ -59,6 +59,6 @@ namespace AdBoard.AppServices
         /// <param name="adId"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task<SelectedAds> AddAdToSelected(Guid selectedId, Guid adId, CancellationToken cancellation);
+        Task<Guid> AddAdToSelected(Guid selectedId, Guid adId, CancellationToken cancellation);
     }
 }

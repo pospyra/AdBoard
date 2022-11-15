@@ -14,10 +14,17 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Categories
 
             builder.Property(b => b.Name).HasMaxLength(800);
 
-            //связь бд
+            //связь бд Объявления_Категория
             builder.HasMany(p => p.Ad)// связь один ко многим. много объяалений
                 .WithOne(s => s.Category)//у категории - есть много объявлений
                 .HasForeignKey(s => s.CategoryId);//связь по внешнему ключу
+
+            //Категория_Подкатегория
+            builder.HasMany(p => p.SubCategories)
+                .WithOne(c => c.Category)
+                .HasForeignKey(i => i.CategoryId);
         }
+
+      
     }  
 }

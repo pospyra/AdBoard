@@ -43,5 +43,12 @@ namespace AdBoard.AppServices.Category
         {
             return _categoryRepository.GetAll(cancellation);
         }
+
+        /*
+        public async Task<Guid> AddSubCategoryAsync(Guid categoryId,string nameSub, Guid subId)
+        {
+           
+        }*/
+
     }
 }

@@ -13,32 +13,39 @@ using System.Threading.Tasks;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
 {
+    /// <summary>
+    /// Репозиторий для работы с Избранными объявлениями
+    /// </summary>
     public class SelectedAdRepository : ISelectedAdRepository
     {
         private readonly IRepository<SelectedAds> _repository;
+        private readonly IRepository<Domain.ItemSelectedAd> _itemRepository;
         private readonly IAdRepository _adRepository;
 
 
-        public SelectedAdRepository(IRepository<SelectedAds> repository, IAdRepository adRepository)
+        public SelectedAdRepository(IRepository<SelectedAds> repository, IAdRepository adRepository, IRepository<Domain.ItemSelectedAd> itemRepository)
         {
             _repository = repository;
             _adRepository = adRepository;
+            _itemRepository = itemRepository;
         }
 
         ///<inheritdoc/>
-        public async Task<SelectedAds> AddAdToSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
+        public async Task<Guid> AddAdToSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
         {
             var selectedAd = await _repository.GetByIdAsync(selectedId);
             if (selectedAd == null)
                 throw new InvalidOperationException($"Вкладки избранных с идентификатором {selectedId} не существует");
 
-            selectedAd.Ads.Add(new Domain.ItemSelectedAd
+             var itemSelectedAd =new Domain.ItemSelectedAd
             {
                 SelectedId = selectedId,
                 AdId = adId
-            });
+            };
 
-            return selectedAd;
+            await _itemRepository.AddAsync(itemSelectedAd);
+
+            return itemSelectedAd.ItemId;
         }
 
 

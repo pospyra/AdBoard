@@ -27,6 +27,11 @@ namespace SelectedAd.Contracts
         public Guid CategoryId { get; set; }
 
         /// <summary>
+        /// Идентификатор Подкатегории объявления.
+        /// </summary>
+        public Guid SubCategoryId { get; set; }
+
+        /// <summary>
         /// Описание.
         /// </summary>
         public string Description { get; set; }

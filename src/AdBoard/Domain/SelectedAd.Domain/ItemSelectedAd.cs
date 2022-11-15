@@ -12,6 +12,11 @@ namespace SelectedAd.Domain
     public class ItemSelectedAd
     {
         /// <summary>
+        /// Идентификатор элеаента коризины
+        /// </summary>
+        public Guid ItemId { get; set; }
+
+        /// <summary>
         /// Идентификатор вкладки избранных.
         /// </summary>
         public Guid SelectedId { get; set; }

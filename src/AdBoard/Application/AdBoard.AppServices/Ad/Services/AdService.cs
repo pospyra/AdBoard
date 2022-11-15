@@ -22,12 +22,13 @@ namespace AdBoard.AppServices.Ad.Services
         }
 
         ///<inheritdoc/>
-        public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, string description, decimal price, bool possibleOfDelivery, Guid userId)
+        public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, Guid sunCategoryId, string description, decimal price, bool possibleOfDelivery, Guid userId)
         {
             var ad = new Ads
             {
                 AdName = adName,
                 CategoryId = categoryId,
+                SubCategoryId = sunCategoryId,
                 Description = description,  
                 Price = price,
                 PossibleOfDelivery = possibleOfDelivery,

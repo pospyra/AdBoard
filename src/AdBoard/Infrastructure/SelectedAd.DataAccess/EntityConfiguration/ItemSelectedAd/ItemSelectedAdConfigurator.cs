@@ -14,6 +14,10 @@ namespace SelectedAd.DataAccess.EntityConfiguration.ItemSelectedAd
         {
             builder.ToTable("ItemSelectedAd");
             {
+                builder.HasKey(b => b.ItemId);
+                builder.Property(b => b.ItemId).ValueGeneratedOnAdd();
+
+
                 builder.HasKey(b => b.SelectedId);
                 builder.HasOne(a => a.Ad);
                 builder.HasOne(s=>s.SelectedAds)
