@@ -14,6 +14,8 @@ namespace AdBoard.Infrastructure.Repository
         /// <returns> Все элементы сущности <see cref="TEntity"/>.</returns>
         IQueryable<TEntity> GetAll();
 
+        Task<IQueryable<TEntity>> GetAllAsync();
+
         ///<summary>
         ///Возвращает все значения по фильтру
         ///</summary>

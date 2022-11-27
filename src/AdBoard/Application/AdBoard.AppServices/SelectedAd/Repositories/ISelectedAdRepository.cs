@@ -9,6 +9,14 @@ namespace AdBoard.AppServices
     public interface ISelectedAdRepository
     {
         /// <summary>
+        /// Получить все объявления из Избранных 
+        /// </summary>
+        /// <param name="id">Id Избранных</param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<IReadOnlyCollection<ItemSelectedAdDto>> GetItemAsync(Guid id, CancellationToken cancellation);
+
+        /// <summary>
         /// Обновляет количество объявлений в избранных.
         /// </summary>
         /// <param name="id">Идентификатор позиции Избранных пользователя</param>

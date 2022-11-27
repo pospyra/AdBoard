@@ -28,6 +28,7 @@ namespace AdBoard.Api.Controllers
             _userService = userService;
         }
 
+        
         /// <summary>
         /// Возвращает позиции всех объявлений.
         /// </summary>
@@ -37,9 +38,29 @@ namespace AdBoard.Api.Controllers
         /// <returns>Ok(result)</returns>
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAll(int take, int skip, CancellationToken cancellation)
+        public async Task<IActionResult> GetAll(CancellationToken cancellation, int take, int skip)
         {
-            var result = await _adService.GetAll(take, skip, cancellation);
+            var result = await _adService.GetAll( cancellation, take, skip);
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Возвращает объявление по параметру
+        /// </summary>
+        /// <param name="AdName"></param>
+        /// <param name="CategoryId"></param>
+        /// <param name="PossibleOfDelivery"></param>
+        /// <param name="Price"></param>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("filterParam")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllFilter(string? AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip) { 
+
+            var result = await _adService.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
 
             return Ok(result);
         }
@@ -47,20 +68,18 @@ namespace AdBoard.Api.Controllers
         /// <summary>
         /// Создать объявление
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
+        /// <param name="createAd"></param>
         /// <param name="cancellation"></param>
-        /// <returns>Created("", new { })</returns>
-        //[Route("api/[controller]/[action]")]
-        [HttpPost]
-        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, Guid subCategory, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
+        /// <returns></returns>
+        [HttpPost("createAd")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<CreateAdDto>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> CreateAdAsync(CreateAdDto createAd, CancellationToken cancellation)
         {
-            var user = await _userService.GetCurrent(cancellation);
+            var user = await _userService.GetCurrentUserId(cancellation);
 
-            var result = await _adService.CreateAdAsync(adName, categoryId, subCategory, description, price, possibleOfDelivery, userId);
+            var result = await _adService.CreateAdAsync(createAd, cancellation);
 
-            return Created("", new { });
+            return Created("", result);
         }
 
         /// <summary>
@@ -83,7 +102,6 @@ namespace AdBoard.Api.Controllers
             return NoContent();
         }
 
-
         /// <summary>
         /// Удаляет объявление
         /// </summary>
@@ -91,7 +109,6 @@ namespace AdBoard.Api.Controllers
         /// <param name="cancellation"></param>
         /// <returns>NoContent</returns>
         [HttpDelete]
-       // [Authorize]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteUserAsync(Guid id, CancellationToken cancellation)
@@ -103,16 +120,95 @@ namespace AdBoard.Api.Controllers
             return NoContent();
         }
 
-                /*
-        [Route("api/[controller]/[action]")]
-        [AllowAnonymous]
-        [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllFilter(AdFilterRequest request, CancellationToken cancellation)
+
+
+
+        /// <summary>
+        /// Создать объявление
+        /// </summary>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <param name="cancellation"></param>
+        /// <returns>Created("", new { })</returns>
+        //[Route("api/[controller]/[action]")]
+        [HttpPost("create")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, Guid subCategory, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
         {
-            var result = await _adService.GetAllFiltered(request, cancellation);
+            var user = await _userService.GetCurrentUserId(cancellation);
+
+            var result = await _adService.CreateAdAsync(adName, categoryId, subCategory, description, price, possibleOfDelivery, userId, cancellation);
+
+            return Created("", new { });
+        }
+
+
+
+
+        /*
+        [AllowAnonymous]
+        [HttpGet("filterParambexPaging")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllFilter(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price)
+        {
+
+            var result = await _adService.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price);
 
             return Ok(result);
         }*/
+
+
+
+        /*
+          /// <summary>
+        /// Объявление по фильтру
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("filterRequest")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllFilter(AdFilterRequest request)
+        {
+            var result =  _adService.GetAllFiltered(request );
+
+            return Ok(result);
+        }*/
+
+        /*
+/// <summary>
+/// Возвращает Страницы Объявления
+/// </summary>
+/// <param name="pagging"></param>
+/// <returns></returns>
+[HttpGet("pagging")]
+[ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+public async Task<IActionResult> GetAll(PagingFilter pagging)
+{
+    var result = await _adService.GetAll(pagging);
+
+    return Ok(result);
+}*/
+
+        /*
+/// <summary>
+/// Создать объявление
+/// </summary>
+/// <param name="take"></param>
+/// <param name="skip"></param>
+/// <param name="cancellation"></param>
+/// <returns>Created("", new { })</returns>
+//[Route("api/[controller]/[action]")]
+[HttpPost()]
+[ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
+public async Task<IActionResult> CreateAdAsync(string adName, Guid categoryId, Guid subCategory, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
+{
+    var user = await _userService.GetCurrent(cancellation);
+
+    var result = await _adService.CreateAdAsync(adName, categoryId, subCategory, description, price, possibleOfDelivery, userId);
+
+    return Created("", new { });
+}*/
     }
 }       

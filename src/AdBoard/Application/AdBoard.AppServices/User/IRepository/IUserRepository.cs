@@ -1,4 +1,5 @@
-﻿using SelectedAd.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using SelectedAd.Contracts;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,14 @@ namespace AdBoard.AppServices.User.IRepository
 {
     public interface IUserRepository 
     {
+
         /// <summary>
         /// Получить пользователя по фильтру
         /// </summary>
         /// <param name="predicate"></param>
         /// <param name="cancallation"></param>
         /// <returns></returns>
-        Task<Users> FindWhere(Expression<Func<Users, bool>> predicate, CancellationToken cancallation);
+        Task<Users> FindWhere(Expression<Func<Users, bool>> predicate);
        
         /// <summary>
        ///Получить пользователя по Идентификатору 
@@ -55,5 +57,12 @@ namespace AdBoard.AppServices.User.IRepository
         /// <param name="region"></param>
         /// <returns></returns>
         Task EditAsync(Guid id, string name, string login, string password, string number, string email, string region);
+
+        /// <summary>
+        /// Возвращает всех Пользователей
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<IReadOnlyCollection<UserDto>> GetAll(CancellationToken cancellation);
     }
 }

@@ -8,15 +8,17 @@ namespace SelectedAd.Domain
 {
     public class SubCategory
     {
-        /// <summary>
-        /// Идентификатор подкатегории
-        /// </summary>
-        public Guid Id { get; set; }
 
         /// <summary>
         /// Наименование подкатегории
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Идентификатор подкатегории
+        /// </summary>
+        public Guid Id { get; set; }
+
 
         /// <summary>
         /// Идентификатор категории

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelectedAd.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,7 @@ namespace SelectedAd.Domain
 {
     public class Categories
     {
-        /// <summary>
-        /// Идентификатор.
-        /// </summary>
-        public Guid Id { get; set; }
+       
 
         /// <summary>
         /// Наименование категории.
@@ -19,8 +17,9 @@ namespace SelectedAd.Domain
         public string Name { get; set; }
 
         /// <summary>
-        /// Объявление.
+        /// Идентификатор.
         /// </summary>
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Коллекция элементов объявлений.
@@ -31,6 +30,7 @@ namespace SelectedAd.Domain
         /// Коллекция элементов подкатегорий
         /// </summary>
         public ICollection<SubCategory> SubCategories { get; set; }
+
     }
 }
 

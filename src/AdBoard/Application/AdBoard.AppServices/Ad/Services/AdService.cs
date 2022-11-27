@@ -13,28 +13,29 @@ namespace AdBoard.AppServices.Ad.Services
     public class AdService : IAdService
     {
         private readonly IAdRepository _adRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public AdService(IAdRepository adRepository, IUserRepository userRepository)
+        public AdService(IAdRepository adRepository, IUserService userService)
         {
             _adRepository = adRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         ///<inheritdoc/>
-        public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, Guid sunCategoryId, string description, decimal price, bool possibleOfDelivery, Guid userId)
+        public async Task<Guid> CreateAdAsync(CreateAdDto createAd, CancellationToken cancellation)
         {
+            var currentUser =  await _userService.GetCurrentUserId(cancellation);
             var ad = new Ads
             {
-                AdName = adName,
-                CategoryId = categoryId,
-                SubCategoryId = sunCategoryId,
-                Description = description,  
-                Price = price,
-                PossibleOfDelivery = possibleOfDelivery,
-                UsersId = userId,
-                Created = DateTime.UtcNow, 
-      
+                AdName = createAd.AdName,
+                CategoryId = createAd.CategoryId,
+                Description = createAd.Description,
+                Price = createAd.Price,
+                PossibleOfDelivery = createAd.PossibleDelivery,
+                UsersId = currentUser,
+                Created = DateTime.UtcNow,
+                Region = createAd.Region
+                
             };
 
             await _adRepository.AddAsync(ad);
@@ -42,26 +43,70 @@ namespace AdBoard.AppServices.Ad.Services
             return ad.Id;
         }
 
-        public Task EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery )
+        ///<inheritdoc/>
+        public Task EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
         {
-             return _adRepository.EditAsync(id, adName, category, description, price, possibleOfDelivery);
+            return _adRepository.EditAsync(id, adName, category, description, price, possibleOfDelivery);
         }
 
         ///<inheritdoc/>
-        public Task<IReadOnlyCollection<AdDto>> GetAll(int take, int skip, CancellationToken cancellation)
-        {
-            return _adRepository.GetAll(take, skip, cancellation);
-        }
-
-        ///<inheritdoc/>
-        public Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request, CancellationToken cancellation)
-        {
-            return _adRepository.GetAllFiltered(request, cancellation);
-        }
-
         public Task DeleteAsync(Guid id, CancellationToken cancellation)
         {
             return _adRepository.DeleteAsync(id, cancellation);
+        }
+
+        ///<inheritdoc/>
+        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip)
+        {
+           return _adRepository.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
+        }
+
+        ///<inheritdoc/>
+        public Task<IReadOnlyCollection<AdDto>> GetAll(CancellationToken cancellation, int take, int skip)
+        {
+            return _adRepository.GetAll(cancellation, take, skip);
+        }
+
+
+
+
+
+
+        public Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging)
+        {
+            return _adRepository.GetAll(paging);
+        }
+
+        public Task GetAllFiltered(AdFilterRequest request)
+        {
+            return _adRepository.GetAllFiltered(request);
+        }
+
+        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price)
+        {
+            return _adRepository.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price);
+        }
+
+        ///<inheritdoc/>
+        public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, Guid sunCategoryId, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)
+        {
+            var currentUser = await _userService.GetCurrentUserId(cancellation);
+            var ad = new Ads
+            {
+                AdName = adName,
+                CategoryId = categoryId,
+                SubCategoryId = sunCategoryId,
+                Description = description,
+                Price = price,
+                PossibleOfDelivery = possibleOfDelivery,
+                UsersId = currentUser,
+                Created = DateTime.UtcNow,
+
+            };
+
+            await _adRepository.AddAsync(ad);
+
+            return ad.Id;
         }
     }
 }

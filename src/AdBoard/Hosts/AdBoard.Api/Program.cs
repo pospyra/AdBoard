@@ -38,6 +38,11 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+
 app.UseAuthentication();
 app.UseAuthorization();
 

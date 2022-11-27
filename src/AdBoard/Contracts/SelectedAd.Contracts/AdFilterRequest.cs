@@ -12,7 +12,7 @@ namespace SelectedAd.Contracts
     /// <summary>
     /// Модель фильтра товаров.
     /// </summary>
-    public class AdFilterRequest
+    public class AdFilterRequest : PagingFilter
     {
         /// <summary>
         /// Идентификатор.
@@ -22,16 +22,21 @@ namespace SelectedAd.Contracts
         /// <summary>
         /// Наименование.
         /// </summary>
-        public string AdName { get; set; }
+        public string? AdName { get; set; }
 
         /// <summary>
         /// Категория.
         /// </summary>
-        public string Category { get; set; }
+        public Guid? CategoryId { get; set; }
 
         /// <summary>
-        /// Категория.
+        /// Возможность доставки
         /// </summary>
-        public decimal Price { get; set; }
+        public bool PossibleOfDelivery { get; set; }
+
+        /// <summary>
+        /// Цена.
+        /// </summary>
+        public decimal? Price { get; set; }
     }
 }

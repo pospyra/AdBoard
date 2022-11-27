@@ -1,5 +1,6 @@
 ﻿using AdBoard.AppServices.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
 using SelectedAd.Domain;
@@ -24,56 +25,56 @@ namespace AdBoard.Api.Controllers
         {
             _userService = userService;
         }
-        /*
+
         /// <summary>
-        /// Возвращает Пользователей по фильтру
+        /// Регистрация Пользователей
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// Потом сама если что роут изменишь И ТАМ И ТАМ
+        [Route("api/[controller]/[action]")]
+        [HttpPost()]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), StatusCodes.Status201Created)]
+        public async Task<IActionResult> Registration(UserRegister user)
+        {
+            var userReg = await _userService.Registration(user);
+
+            return Created("", userReg);
+        }
+
+        /// <summary>
+        /// Аутентификация Пользователя
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <returns></returns>
+        [HttpPost("login")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Login(UserLogin userLogin)
+        {
+            var token = await _userService.Login(userLogin);
+
+            return Ok(new { Token = token, Message = "Success" });
+        }
+
+        /// <summary>
+        /// Возвращает всех Пользователей
+        /// </summary>
         /// <param name="cancellation"></param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAll(Expression<Func<Users, bool>> predicate, CancellationToken cancellation)
+        public async Task<IActionResult> GetAllUser(CancellationToken cancellation)
         {
-            var result = await _userService.FindWhere(predicate, cancellation);
-
+            var result = await _userService.GetUsers(cancellation);
             return Ok(result);
-        }*/
-
-        /// <summary>
-        /// Регистрирует Пользователя
-        /// </summary>
-        /// <param name="login">Логин</param>
-        /// <param name="name">Имя</param>
-        /// <param name="password">Пароль</param>
-        /// <param name="number">Номер телефона</param>
-        /// <param name="email">Email</param>
-        /// <param name="region">Регион</param>
-        /// <param name="cancellation">Отмена действия</param>
-        /// <returns></returns>
-        [HttpPost("register")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register(string login, string name, string password, string number, string email, string region, CancellationToken cancellation)
-        {
-            var user = await _userService.Register(login, password, name, number, email, region, cancellation);
-
-            return Created("", new { });
         }
 
-        /// <summary>
-        /// Залогинить пользователя
-        /// </summary>
-        /// <param name="login"></param>
-        /// <param name="password"></param>
-        /// <param name="cancellation"></param>
-        /// <returns></returns>
-        [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Login(string login, string password, CancellationToken cancellation)
+        [HttpGet("usreId")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<Users>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetCurrenUserI(CancellationToken cancellation)
         {
-            var token = await _userService.Login(login, password, cancellation);
-
-            return Ok(token);
+            var result = await _userService.GetCurrentUserId(cancellation);
+            return Ok(result);
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace AdBoard.Api.Controllers
         /// <param name="region"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> EditAdAsync(Guid id, string name, string login, string password, string number, string email, string region)
         {
             await _userService.EditAsync(id, name, login, password, number, email, region);
@@ -110,5 +111,39 @@ namespace AdBoard.Api.Controllers
             await _userService.DeleteAsync(id, cancellation);
             return NoContent();
         }
+
+
+        
+        /// <summary>
+        /// Старая аутентификация
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpPost("loginnnn")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Login(string login, string password)
+        {
+            var token = await _userService.Login(login, password);
+
+            return Ok(token);
+        }
+
+        /*
+        /// <summary>
+        /// Возвращает Пользователей по фильтру
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IReadOnlyCollection<UserDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll(Expression<Func<Users, bool>> predicate, CancellationToken cancellation)
+        {
+            var result = await _userService.FindWhere(predicate, cancellation);
+
+            return Ok(result);
+        }*/
     }
 }

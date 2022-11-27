@@ -2,6 +2,7 @@
 using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using SelectedAd.Contracts;
+using SelectedAd.Domain;
 using System;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Categories
@@ -44,14 +45,26 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Categories
             await _repository.UpdateAsync(existingCategoty);
         }
 
-        public async Task<IReadOnlyCollection<CategoryDto>> GetAll(CancellationToken cancellation)
+        public async Task<IReadOnlyCollection<Domain.Categories>> GetAll(CancellationToken cancellation)
         {
             return await _repository.GetAll()
-              .Select(p => new CategoryDto
+              .Select(p => new Domain.Categories
               {
+                  Name = p.Name,
                   Id = p.Id,
-                  Name = p.Name
+                  SubCategories =p.SubCategories,
               }).ToListAsync(cancellation);
+        }
+
+       public async Task<IReadOnlyCollection<SubCategoryDto>> GetAllSubCategory(CancellationToken cancellation)
+        {
+            return await _subrepository.GetAll()
+             .Select(p => new SubCategoryDto
+             {
+                 key = p.Id,
+                  title = p.Name,
+                //  CategoryId = p.CategoryId,
+             }).ToListAsync(cancellation);
         }
 
         /*

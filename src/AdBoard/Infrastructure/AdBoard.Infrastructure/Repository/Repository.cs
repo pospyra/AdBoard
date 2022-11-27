@@ -50,6 +50,13 @@ namespace AdBoard.Infrastructure.Repository
             return DbSet;
         }
 
+        public async Task <IQueryable<TEntity>> GetAllAsync()
+        {
+            return DbSet;
+        }
+
+
+
         /// <inheritdoc />
         public IQueryable<TEntity> GetAllFiltered(Expression<Func<TEntity, bool>> filter)
         {

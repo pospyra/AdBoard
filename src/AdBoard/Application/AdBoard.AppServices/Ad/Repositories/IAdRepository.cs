@@ -8,13 +8,17 @@ namespace AdBoard.AppServices.Ad.Repositories
     /// </summary>
     public interface IAdRepository
     {
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price);
+
         /// <summary>
         /// Возвращает все объявления используя постаничную загрузку
         /// </summary>
         /// <param name="take">Сколько объявлений взять</param>
         /// <param name="skip">Сколько пропустить</param>
         /// <returns>>Коллекция элементов <see cref="AdDto"/></returns>
-        Task<IReadOnlyCollection<AdDto>> GetAll(int take, int skip, CancellationToken cancellationp);
+        Task<IReadOnlyCollection<AdDto>> GetAll( CancellationToken cancellation, int take, int skip);
+
+        Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging); 
 
         /// <summary>
         /// Возвращает объявление по Идентификатору
@@ -30,7 +34,10 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="request">Модель фильтра объявления</param>
         /// <param name="cancellation">Отмена операции</param>
         /// <returns>Коллекция элементов <see cref="AdDto"/>.</returns>
-        Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request, CancellationToken cancellation);
+        /// Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip);
+
+       Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
 
         /// <summary>
         /// Добавляет объявление

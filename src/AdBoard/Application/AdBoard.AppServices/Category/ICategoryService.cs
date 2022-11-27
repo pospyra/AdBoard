@@ -1,4 +1,5 @@
 ﻿using SelectedAd.Contracts;
+using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,8 @@ namespace AdBoard.AppServices.Category
         /// <param name="id"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-       Task <IReadOnlyCollection<CategoryDto>> GetAllCategory( CancellationToken cancellation);   
+        Task<IReadOnlyCollection<Categories>> GetAllCategory(CancellationToken cancellation);
+
+        Task<IReadOnlyCollection<SubCategoryDto>> GetAllSubCategory(CancellationToken cancellation);
     }
 }

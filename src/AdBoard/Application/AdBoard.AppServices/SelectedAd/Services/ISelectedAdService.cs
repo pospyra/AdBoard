@@ -27,6 +27,14 @@ namespace AdBoard.AppServices.SelectedAd.Services
         Task<IReadOnlyCollection<SelectedAdDto>> GetAsync(CancellationToken cancellation);
 
         /// <summary>
+        /// Возвращет элементы Избранных
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<IReadOnlyCollection<ItemSelectedAdDto>> GetItemSelectedAsync(Guid id, CancellationToken cancellation);
+
+        /// <summary>
         /// Обновляет объявление из избранных.
         /// </summary>
         /// <param name="id">Индентификатор позиции Избранных пользователя</param>

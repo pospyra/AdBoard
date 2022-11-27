@@ -3,6 +3,7 @@ using AdBoard.AppServices.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
+using SelectedAd.Domain;
 using System.Net;
 
 namespace AdBoard.Api.Controllers
@@ -30,10 +31,23 @@ namespace AdBoard.Api.Controllers
         /// <param name="cancellation"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CategoryDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<Categories>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllCategory( CancellationToken cancellation)
         {
             var result = await _categoryService.GetAllCategory(cancellation);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Получить все Податегории
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("sub")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<SubCategoryDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllSubCategory(CancellationToken cancellation)
+        {
+            var result = await _categoryService.GetAllSubCategory(cancellation);
             return Ok(result);
         }
 

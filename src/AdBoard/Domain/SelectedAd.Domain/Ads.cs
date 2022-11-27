@@ -53,7 +53,12 @@
         /// <summary>
         /// Дата создания объявления
         /// </summary>
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }//!!!!!!!!!!!!!!!!!
+
+        /// <summary>
+        /// Регион
+        /// </summary>
+        public string? Region { get; set; }
 
 
         /// <summary>

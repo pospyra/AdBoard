@@ -23,6 +23,8 @@ namespace AdBoard.Registrar
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddSingleton<IDateTimeSevices, DateTimeSevices>();
             services.AddSingleton<IDbContextOptionsConfigurator<AdBoardContext>, AdBoardContextConfiguration>();
 

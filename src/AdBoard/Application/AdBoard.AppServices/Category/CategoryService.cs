@@ -39,9 +39,14 @@ namespace AdBoard.AppServices.Category
              await _categoryRepository.EditAsync(id, name, cancellation);
         }
 
-        Task<IReadOnlyCollection<CategoryDto>> ICategoryService.GetAllCategory(CancellationToken cancellation)
+        public  Task<IReadOnlyCollection<Categories>> GetAllCategory(CancellationToken cancellation)
         {
             return _categoryRepository.GetAll(cancellation);
+        }
+
+        Task<IReadOnlyCollection<SubCategoryDto>> ICategoryService.GetAllSubCategory(CancellationToken cancellation)
+        {
+            return _categoryRepository.GetAllSubCategory(cancellation);
         }
 
         /*

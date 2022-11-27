@@ -74,17 +74,23 @@ namespace AdBoard.Api.Controllers
         }
 
         /// <summary>
-        /// ќбновл€ет количество избранных объ€влений.
+        /// ѕолучить объ€влени€ из »збранных
         /// </summary>
-        [HttpPut("{id}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateQuantityAsync(Guid id, int quantity, CancellationToken cancellation)
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/[action]")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IReadOnlyCollection<ItemSelectedAdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetItemAsync(Guid id, CancellationToken cancellation)
         {
-            await _selectedAdService.UpdateQuantityAsync(id, quantity, cancellation);
-            return NoContent();
-        }
 
+            //var user = await _userService.GetCurrent(cancellation); 
+
+            var result = await _selectedAdService.GetItemSelectedAsync(id, cancellation);
+
+            return Ok(result);
+        }
 
         /// <summary>
         /// ƒобавить ќбъ€вление в »збранные
@@ -106,8 +112,18 @@ namespace AdBoard.Api.Controllers
         }
 
 
-      
-       
+        /// <summary>
+        /// ќбновл€ет количество избранных объ€влений.
+        /// </summary>
+        [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateQuantityAsync(Guid id, int quantity, CancellationToken cancellation)
+        {
+            await _selectedAdService.UpdateQuantityAsync(id, quantity, cancellation);
+            return NoContent();
+        }
+
         /// <summary>
         /// ”дал€ет объ€вление из »збранных
         /// </summary>

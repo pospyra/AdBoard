@@ -50,6 +50,11 @@ namespace AdBoard.AppServices.SelectedAd.Services
             return _selectedAdRepository.GetAllAsync(cancellation);
         }
 
+        public Task<IReadOnlyCollection<ItemSelectedAdDto>> GetItemSelectedAsync(Guid id,CancellationToken cancellation)
+        {
+            return _selectedAdRepository.GetItemAsync(id, cancellation);
+        }
+
         ///<inheritdoc/>
         public Task RemoveItemSelected(Guid selectedId, Guid adId, CancellationToken cancellation)
         {

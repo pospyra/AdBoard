@@ -9,13 +9,19 @@ namespace SelectedAd.Contracts
     public class ItemSelectedAdDto
     {
         /// <summary>
-        /// Описание.
+        /// Идентификатор элеаента коризины
         /// </summary>
-        public string Description { get; set; }
+        public Guid ItemId { get; set; }
 
         /// <summary>
-        /// Цена.
+        /// Идентификатор вкладки избранных.
         /// </summary>
-        public decimal Price { get; set; }
+        public Guid SelectedId { get; set; }
+
+        /// <summary>
+        /// Идентификатор объявления.
+        /// </summary>
+        public Guid AdId { get; set; }
     }
 }
+

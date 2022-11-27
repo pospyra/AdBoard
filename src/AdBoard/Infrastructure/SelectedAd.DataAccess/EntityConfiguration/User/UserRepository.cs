@@ -21,6 +21,28 @@ namespace SelectedAd.DataAccess.EntityConfiguration.User
         {
             _repository = repository;
         }
+        /// <summary>
+        /// Получить всех пользователей
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyCollection<UserDto>> GetAll(CancellationToken cancellation)
+        {
+            return await _repository.GetAll()
+                .Select(p => new UserDto
+                {
+                    Id = p.Id,
+                    Login = p.Login,
+                    Password = p.Password,
+                    Name = p.Name,
+                    Number = p.Number,
+                    Email = p.Email,
+                    Region = p.Region
+
+                })
+                .ToListAsync(cancellation);
+        }
+
 
         /// <summary>
         /// Добавляет пользователя
@@ -38,11 +60,11 @@ namespace SelectedAd.DataAccess.EntityConfiguration.User
         /// <param name="predicate"></param>
         /// <param name="cancallation"></param>
         /// <returns></returns>
-        public async Task<Users> FindWhere(Expression<Func<Users, bool>> predicate, CancellationToken cancallation)
+        public async Task<Users> FindWhere(Expression<Func<Users, bool>> predicate  )
         {
            var data = _repository.GetAllFiltered(predicate);
 
-            return await data.Where(predicate).FirstOrDefaultAsync(cancallation);
+            return await data.Where(predicate).FirstOrDefaultAsync();
         }
 
         /// <summary>

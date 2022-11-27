@@ -3,6 +3,8 @@ using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using SelectedAd.Contracts;
 using SelectedAd.Domain;
+using System;
+using System.Linq;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 {
@@ -19,6 +21,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
         {
             _repository = repository;
         }
+
 
         /// <inheritdoc />
         public Task AddAsync(Ads model)
@@ -52,30 +55,103 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             await _repository.UpdateAsync(existingAd);
         }
-
-        /// <inheritdoc />
-        public async Task<IReadOnlyCollection<AdDto>> GetAll(int take, int skip, CancellationToken cancellation)
-        {
-            return await _repository.GetAll()
-                .Select(p => new AdDto
-                {
-                    Id = p.Id,
-                    AdName = p.AdName,
-                    Description = p.Description,
-                    Price = p.Price
-                })
-                .Take(take).Skip(skip).ToListAsync(cancellation);
-        }
+       
 
         public async Task<Ads> FindById(Guid id, CancellationToken cancellation)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        ///<inheritdoc/>
-        public async Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request, CancellationToken cancellation)
+
+        
+       /// <inheritdoc />
+       public async Task<IReadOnlyCollection<AdDto>> GetAll( CancellationToken cancellation, int take, int skip)
+       {
+           return await _repository.GetAll()
+               .Select(p => new AdDto
+               {
+                   Id = p.Id,
+                   AdName = p.AdName,
+                   Description = p.Description,
+                   Price = p.Price,
+                   CategoryId = p.CategoryId,
+                   SubCategoryId = p.SubCategoryId,
+                   UserId = p.UsersId,
+                   PossibleOfDelivery = p.PossibleOfDelivery
+
+               }).OrderBy(p => p.Id).Take(skip).Skip((take - 1) * skip).ToListAsync();
+           // .Take(take).Skip((take - 1) * skip).ToListAsync(cancellation);
+        }
+
+        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip)
+        {
+
+            var query = _repository.GetAll();
+
+            if (!string.IsNullOrEmpty(AdName))
+            {
+                query = _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName));
+            }
+
+            if (PossibleOfDelivery)
+            {
+                query = _repository.GetAll().Where(d => d.PossibleOfDelivery == PossibleOfDelivery == true);
+            }
+
+            if (Price != null)
+            {
+                query = _repository.GetAll().Where(d => d.Price == Price == true);
+            }
+
+              return await _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName)).Select(p => new AdDto
+              {
+                  Id = p.Id,
+                  AdName = p.AdName,
+                  Description = p.Description,
+                  Price = p.Price,
+                  CategoryId = p.CategoryId
+              }).OrderBy(p => p.Id).Take(take ).Skip((take - 1) * skip)
+              .ToListAsync();
+          }
+
+
+        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price)
         {
             var query = _repository.GetAll();
+
+
+            if (!string.IsNullOrEmpty(AdName))
+            {
+                var ad = _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName));
+            }
+
+            if (PossibleOfDelivery)
+            {
+                query = query.Where(d => d.PossibleOfDelivery == PossibleOfDelivery == true);
+            }
+
+            if (Price != null)
+            {
+                query = query.Where(d => d.Price == Price == true);
+            }
+
+            return await query.Select(p => new AdDto
+            {
+                Id = p.Id,
+                AdName = p.AdName,
+                Description = p.Description,
+                Price = p.Price,
+                CategoryId = p.CategoryId
+            }).OrderBy(p => p.Id)//.Take(take).Skip( skip).ToListAsync(cancellation);
+                                 .ToListAsync();
+        }
+        ///<inheritdoc/>
+        public async Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request)
+        {
+            var query = await _repository.GetAllAsync();
+
+            if (request == null)
+                throw new NullReferenceException("Не задан фильтр");
 
             if (request.Id.HasValue)
             {
@@ -87,17 +163,47 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 query = query.Where(p => p.AdName.ToLower().Contains(request.AdName));
             }
 
+            if (request.CategoryId.HasValue)
+            {
+                query = query.Where(c => c.CategoryId == request.CategoryId);
+            }
+
+            if (request.PossibleOfDelivery == true)
+            {
+                query = query.Where(d => d.PossibleOfDelivery == request.PossibleOfDelivery == true);
+            }
+
+
             return await query.Select(p => new AdDto
             {
                 Id = p.Id,
                 AdName = p.AdName,
                 Description = p.Description,
                 Price = p.Price,
-                CategoryId = p.CategoryId,
-            }).ToListAsync(cancellation);
+                CategoryId = p.CategoryId
+            }).Skip((request.CurrentPage - 1) * request.Size).Take(request.Size)
+                .ToListAsync();
         }
 
-       //сорировка по цене верх-вниз
+        public async Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging)
+        {
+            return await _repository.GetAll()
+                .Select(p => new AdDto
+                {
+                    Id = p.Id,
+                    AdName = p.AdName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CategoryId = p.CategoryId,
+                    SubCategoryId = p.SubCategoryId,
+                    UserId = p.UsersId,
+                    PossibleOfDelivery = p.PossibleOfDelivery
+
+                }).Skip((paging.CurrentPage - 1) * paging.Size).Take(paging.Size)
+                .ToListAsync();
+        }
+
+        //сорировка по цене верх-вниз
 
         //поиск по объявлениями
     }

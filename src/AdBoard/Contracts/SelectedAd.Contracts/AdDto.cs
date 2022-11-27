@@ -29,7 +29,7 @@ namespace SelectedAd.Contracts
         /// <summary>
         /// Идентификатор Подкатегории объявления.
         /// </summary>
-        public Guid SubCategoryId { get; set; }
+        public Guid? SubCategoryId { get; set; }
 
         /// <summary>
         /// Описание.
@@ -45,5 +45,7 @@ namespace SelectedAd.Contracts
         /// Возомжность доставки
         /// </summary>
         public  bool PossibleOfDelivery { get; set; }
+
+        public Guid? UserId { get; set; }
     }
 }

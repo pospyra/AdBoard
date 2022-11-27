@@ -1,4 +1,5 @@
-﻿using SelectedAd.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using SelectedAd.Contracts;
 using SelectedAd.Domain;
 using System.Linq.Expressions;
 
@@ -9,24 +10,48 @@ namespace AdBoard {
     /// </summary>
     public interface IUserService
     {
+  
 
         /// <summary>
-        /// Регистрация пользователя.
+        /// Получить Id текщего пользователя
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<Guid> GetCurrentUserId(CancellationToken cancellation);
+
+        /// <summary>
+        /// Регистрация Пользователя
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<Guid> Registration(UserRegister user);
+
+        /// <summary>
+        /// Аутентификация Пользователя
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <returns></returns>
+        Task<string> Login(UserLogin userLogin);
+
+         Task<IReadOnlyCollection<UserDto>> GetUsers(CancellationToken cancellation);
+
+        /// <summary>
+        /// Старая Регистрация пользователя.
         /// </summary>
         /// <param name="Login">Логин.</param>
         /// <param name="Password">Пароль.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>Идентификатор пользователя.</returns>
-        Task<Guid> Register(string login, string name, string password, string number, string email, string region, CancellationToken cancellation);
-
+        Task<Guid> Register(string login, string name, string password, string number, string email, string region);
+       
         /// <summary>
-        /// Залогиниться.
+        /// Старыый логин
         /// </summary>
         /// <param name="Login"></param>
         /// <param name="Password"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Токен.</returns>
-        Task<string> Login(string login, string password, CancellationToken cancellationToken);
+        Task<string> Login(string login, string password);
 
             /// <summary>
             /// Удалить Пользователя

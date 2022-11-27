@@ -15,7 +15,7 @@ namespace AdBoard.Api
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     var secretKey = configuration["Token:SecretKey"];
-
+                    //options.Authority = "https://localhost:7186";
                     options.SaveToken = true;
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters()

@@ -23,7 +23,9 @@ namespace AdBoard.AppServices.Category
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IReadOnlyCollection<CategoryDto>> GetAll( CancellationToken cancellation);
+        Task<IReadOnlyCollection<Categories>> GetAll(CancellationToken cancellation);
+
+        Task<IReadOnlyCollection<SubCategoryDto>> GetAllSubCategory(CancellationToken cancellation);
 
         /// <summary>
         /// Удаляет категорию

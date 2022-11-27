@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
 {
@@ -82,7 +83,24 @@ namespace SelectedAd.DataAccess.EntityConfiguration.SelectedAd
                     
                 }).ToListAsync(cancellation);
         }
-        
+
+        public async Task<IReadOnlyCollection<ItemSelectedAdDto>> GetItemAsync(Guid id, CancellationToken cancellation)
+        {
+            var selectedAd = await _itemRepository.GetByIdAsync(id);
+
+            var adsAll = _itemRepository.GetAll();
+
+            var ads = adsAll.Where(a => a.SelectedId == selectedAd.SelectedId);
+
+            return await ads.Select(s => new ItemSelectedAdDto
+            {
+               ItemId = s.ItemId,
+               SelectedId = s.SelectedId,
+               AdId = s.AdId
+
+            }).ToListAsync(cancellation);
+        }
+
         /// <summary>
         /// Удалить объявление из Избранных
         /// </summary>
