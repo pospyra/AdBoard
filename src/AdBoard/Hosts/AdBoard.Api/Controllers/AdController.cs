@@ -58,9 +58,30 @@ namespace AdBoard.Api.Controllers
         [AllowAnonymous]
         [HttpGet("filterParam")]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllFilter(string? AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip) { 
+        public async Task<IActionResult> GetAllFilter(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip) { 
 
             var result = await _adService.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdName"></param>
+        /// <param name="CategoryId"></param>
+        /// <param name="PossibleOfDelivery"></param>
+        /// <param name="Price"></param>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("pageFilter")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAdFilter(AdFilterRequest request)
+        {
+
+            var result = await _adService.GetAllFiltered(request);
 
             return Ok(result);
         }

@@ -38,7 +38,7 @@ namespace AdBoard.AppServices.Ad.Services
         /// <param name=""></param>
         /// <returns></returns>
         //  Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip);
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip);
 
 
         /// <summary>
@@ -72,13 +72,8 @@ namespace AdBoard.AppServices.Ad.Services
         Task<Guid> CreateAdAsync(string adName, Guid categoryId, Guid sunCategoryId, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation);
 
 
-        Task GetAllFiltered(AdFilterRequest request);
+        Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
 
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price);
-
-
-       
-        Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging);
 
     }
 }

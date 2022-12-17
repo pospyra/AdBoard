@@ -56,7 +56,7 @@ namespace AdBoard.AppServices.Ad.Services
         }
 
         ///<inheritdoc/>
-        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip)
+        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip)
         {
            return _adRepository.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
         }
@@ -67,25 +67,11 @@ namespace AdBoard.AppServices.Ad.Services
             return _adRepository.GetAll(cancellation, take, skip);
         }
 
-
-
-
-
-
-        public Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging)
+        public async Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request)
         {
-            return _adRepository.GetAll(paging);
+            return await  _adRepository.GetAllFiltered(request);
         }
 
-        public Task GetAllFiltered(AdFilterRequest request)
-        {
-            return _adRepository.GetAllFiltered(request);
-        }
-
-        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price)
-        {
-            return _adRepository.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price);
-        }
 
         ///<inheritdoc/>
         public async Task<Guid> CreateAdAsync(string adName, Guid categoryId, Guid sunCategoryId, string description, decimal price, bool possibleOfDelivery, Guid userId, CancellationToken cancellation)

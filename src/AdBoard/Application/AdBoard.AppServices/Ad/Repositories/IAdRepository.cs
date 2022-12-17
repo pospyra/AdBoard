@@ -8,7 +8,6 @@ namespace AdBoard.AppServices.Ad.Repositories
     /// </summary>
     public interface IAdRepository
     {
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price);
 
         /// <summary>
         /// Возвращает все объявления используя постаничную загрузку
@@ -18,7 +17,6 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <returns>>Коллекция элементов <see cref="AdDto"/></returns>
         Task<IReadOnlyCollection<AdDto>> GetAll( CancellationToken cancellation, int take, int skip);
 
-        Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging); 
 
         /// <summary>
         /// Возвращает объявление по Идентификатору
@@ -35,7 +33,7 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="cancellation">Отмена операции</param>
         /// <returns>Коллекция элементов <see cref="AdDto"/>.</returns>
         /// Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip);
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip);
 
        Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
 

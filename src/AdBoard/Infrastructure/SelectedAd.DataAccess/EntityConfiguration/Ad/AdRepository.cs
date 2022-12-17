@@ -34,7 +34,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
         {
             var existingAd = await _repository.GetByIdAsync(id);
 
-            await  _repository.DeleteAsync(existingAd);
+            await _repository.DeleteAsync(existingAd);
         }
 
         ///<inheritdoc/>
@@ -55,7 +55,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             await _repository.UpdateAsync(existingAd);
         }
-       
+
 
         public async Task<Ads> FindById(Guid id, CancellationToken cancellation)
         {
@@ -63,76 +63,49 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
         }
 
 
-        
-       /// <inheritdoc />
-       public async Task<IReadOnlyCollection<AdDto>> GetAll( CancellationToken cancellation, int take, int skip)
-       {
-           return await _repository.GetAll()
-               .Select(p => new AdDto
-               {
-                   Id = p.Id,
-                   AdName = p.AdName,
-                   Description = p.Description,
-                   Price = p.Price,
-                   CategoryId = p.CategoryId,
-                   SubCategoryId = p.SubCategoryId,
-                   UserId = p.UsersId,
-                   PossibleOfDelivery = p.PossibleOfDelivery
 
-               }).OrderBy(p => p.Id).Take(skip).Skip((take - 1) * skip).ToListAsync();
-           // .Take(take).Skip((take - 1) * skip).ToListAsync(cancellation);
+        /// <inheritdoc />
+        public async Task<IReadOnlyCollection<AdDto>> GetAll(CancellationToken cancellation, int take, int skip)
+        {
+            return await _repository.GetAll()
+                .Select(p => new AdDto
+                {
+                    Id = p.Id,
+                    AdName = p.AdName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CategoryId = p.CategoryId,
+                    SubCategoryId = p.SubCategoryId,
+                    UserId = p.UsersId,
+                    PossibleOfDelivery = p.PossibleOfDelivery
+
+                }).OrderBy(p => p.Id).Skip((take - 1) * skip).Take(skip).ToListAsync();
+            // .Take(take).Skip((take - 1) * skip).ToListAsync(cancellation);
         }
 
-        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price, int take, int skip)
+        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip)
         {
 
             var query = _repository.GetAll();
 
             if (!string.IsNullOrEmpty(AdName))
             {
-                query = _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName));
+                query = query.Where(p => p.AdName.ToLower().Contains(AdName));
             }
 
-            if (PossibleOfDelivery)
+            if (CategoryId != null)
             {
-                query = _repository.GetAll().Where(d => d.PossibleOfDelivery == PossibleOfDelivery == true);
+                query = query.Where(d => d.CategoryId == CategoryId);
             }
 
-            if (Price != null)
-            {
-                query = _repository.GetAll().Where(d => d.Price == Price == true);
-            }
-
-              return await _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName)).Select(p => new AdDto
-              {
-                  Id = p.Id,
-                  AdName = p.AdName,
-                  Description = p.Description,
-                  Price = p.Price,
-                  CategoryId = p.CategoryId
-              }).OrderBy(p => p.Id).Take(take ).Skip((take - 1) * skip)
-              .ToListAsync();
-          }
-
-
-        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string AdName, Guid CategoryId, bool PossibleOfDelivery, decimal Price)
-        {
-            var query = _repository.GetAll();
-
-
-            if (!string.IsNullOrEmpty(AdName))
-            {
-                var ad = _repository.GetAll().Where(p => p.AdName.ToLower().Contains(AdName));
-            }
-
-            if (PossibleOfDelivery)
+            if (PossibleOfDelivery!=null)
             {
                 query = query.Where(d => d.PossibleOfDelivery == PossibleOfDelivery == true);
             }
 
             if (Price != null)
             {
-                query = query.Where(d => d.Price == Price == true);
+                query = query.Where(d => d.Price == Price);
             }
 
             return await query.Select(p => new AdDto
@@ -142,9 +115,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 Description = p.Description,
                 Price = p.Price,
                 CategoryId = p.CategoryId
-            }).OrderBy(p => p.Id)//.Take(take).Skip( skip).ToListAsync(cancellation);
-                                 .ToListAsync();
+            }).OrderBy(p => p.Id).Skip((take - 1) * skip).Take(skip).ToListAsync();
         }
+    
         ///<inheritdoc/>
         public async Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request)
         {
@@ -168,6 +141,11 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 query = query.Where(c => c.CategoryId == request.CategoryId);
             }
 
+            if (request.Price.HasValue)
+            {
+                query = query.Where(p => p.Price == request.Price);
+            }
+
             if (request.PossibleOfDelivery == true)
             {
                 query = query.Where(d => d.PossibleOfDelivery == request.PossibleOfDelivery == true);
@@ -182,24 +160,6 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 Price = p.Price,
                 CategoryId = p.CategoryId
             }).Skip((request.CurrentPage - 1) * request.Size).Take(request.Size)
-                .ToListAsync();
-        }
-
-        public async Task<IReadOnlyCollection<AdDto>> GetAll(PagingFilter paging)
-        {
-            return await _repository.GetAll()
-                .Select(p => new AdDto
-                {
-                    Id = p.Id,
-                    AdName = p.AdName,
-                    Description = p.Description,
-                    Price = p.Price,
-                    CategoryId = p.CategoryId,
-                    SubCategoryId = p.SubCategoryId,
-                    UserId = p.UsersId,
-                    PossibleOfDelivery = p.PossibleOfDelivery
-
-                }).Skip((paging.CurrentPage - 1) * paging.Size).Take(paging.Size)
                 .ToListAsync();
         }
 

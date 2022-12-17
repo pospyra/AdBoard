@@ -23,9 +23,21 @@
             <param name="cancellation"></param>
             <returns>Ok(result)</returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.GetAllFilter(System.String,System.Guid,System.Boolean,System.Decimal,System.Int32,System.Int32)">
+        <member name="M:AdBoard.Api.Controllers.AdController.GetAllFilter(System.String,System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Int32,System.Int32)">
             <summary>
             Возвращает объявление по параметру
+            </summary>
+            <param name="AdName"></param>
+            <param name="CategoryId"></param>
+            <param name="PossibleOfDelivery"></param>
+            <param name="Price"></param>
+            <param name="take"></param>
+            <param name="skip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.AdController.GetAdFilter(SelectedAd.Contracts.AdFilterRequest)">
+            <summary>
+            
             </summary>
             <param name="AdName"></param>
             <param name="CategoryId"></param>
