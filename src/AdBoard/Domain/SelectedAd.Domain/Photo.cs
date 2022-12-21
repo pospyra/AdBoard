@@ -21,7 +21,7 @@ namespace SelectedAd.Domain
         /// <summary>
         /// Mine type Изображения
         /// </summary>
-        public string ImageMimeType { get; set; }
+        public string KodBase64 { get; set; }
 
         /// <summary>
         /// Идентификатор Объявления

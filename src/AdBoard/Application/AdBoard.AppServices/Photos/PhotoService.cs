@@ -20,10 +20,10 @@ namespace AdBoard.AppServices.Photos
             _photoRepository = photoRepository;
         }
 
-        //public async Task<CreatePhotoResponse> AddAPhotoc(CreatePhotoRequest photo, CancellationToken cancellation)
-        //{
-
-        //}
+        public async Task<CreatePhotoResponse> AddAdPhoto(CreatePhotoRequest photo, CancellationToken cancellation)
+        {
+            return await _photoRepository.AddAPhoto(photo, cancellation);
+        }
 
 
         ///<inheritdoc/>

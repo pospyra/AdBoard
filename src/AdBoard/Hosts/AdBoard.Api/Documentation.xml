@@ -138,6 +138,14 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
+        <member name="M:AdBoard.Api.Controllers.PhotoController.AddPhoto(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>
+            Добавить фото
+            </summary>
+            <param name="photo"></param>
+            <param name="image"></param>
+            <param name="cancellation"></param>
+        </member>
         <member name="M:AdBoard.Api.Controllers.PhotoController.DeletePhoto(System.Guid,System.Threading.CancellationToken)">
             <summary>
             Удалить фото

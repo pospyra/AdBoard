@@ -1,4 +1,5 @@
-﻿using SelectedAd.Domain;
+﻿using SelectedAd.Contracts.Photo;
+using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace AdBoard.AppServices.Photos
         /// <param name="id">Идентификтор позиции Избранных пользователя</param>
         /// <param name="cancellation">Отмена операции</param>
         Task DeleteAsync(Guid id, CancellationToken cancellation);
+
+        Task<CreatePhotoResponse> AddAPhoto(CreatePhotoRequest photo, CancellationToken cancellation);
 
     }
 }

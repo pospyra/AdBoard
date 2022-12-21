@@ -23,6 +23,7 @@ namespace AdBoard.AppServices.Photos
         /// <param name="photo"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        //Task<CreatePhotoResponse> AddAPhotoc(CreatePhotoRequest photo, CancellationToken cancellation);
+        /// 
+        Task<CreatePhotoResponse> AddAdPhoto(CreatePhotoRequest photo, CancellationToken cancellation);
     }
 }

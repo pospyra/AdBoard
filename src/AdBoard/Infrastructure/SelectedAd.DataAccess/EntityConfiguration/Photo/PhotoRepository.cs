@@ -1,6 +1,7 @@
 ﻿using AdBoard.AppServices.Photos;
 using AdBoard.Infrastructure.Repository;
 using SelectedAd.Contracts;
+using SelectedAd.Contracts.Photo;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,25 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Photo
         public PhotoRepository(IRepository<Domain.Photo> repository)
         {
             _repository = repository;
+        }
+
+        public async Task<CreatePhotoResponse> AddAPhoto(CreatePhotoRequest photo, CancellationToken cancellation)
+        {
+            if (photo.Photo.Length > 5242880)
+            {
+                throw new Exception("Слишклм большой размер");
+            }
+
+            Domain.Photo photos = new Domain.Photo()
+            {
+                KodBase64 = Convert.ToBase64String(photo.Photo, 0, photo.Photo.Length)
+            };
+            await _repository.AddAsync(photos);
+            var result = new CreatePhotoResponse
+            {
+                Id = photos.Id
+            };
+            return result;
         }
 
         public Task AddPhotoAsync(Domain.Photo model)

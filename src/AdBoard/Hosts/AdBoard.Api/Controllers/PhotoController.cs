@@ -19,7 +19,7 @@ namespace AdBoard.Api.Controllers
         public PhotoController(IPhotoService photoService)
         {
             _photoService = photoService;
-        }   
+        }
 
         /// <summary>
         /// Добавить фото
@@ -28,24 +28,25 @@ namespace AdBoard.Api.Controllers
         /// <param name="image"></param>
         /// <param name="cancellation"></param>
         ///// <returns></returns>
-        //[HttpPost("addPhoto")]
-        //[ProducesResponseType(typeof(IReadOnlyCollection<PhotoDto>), (int)HttpStatusCode.Created)]
-        //public async Task<IActionResult> AddPhoto(IFormFile file, CancellationToken cancellationToken)
-        //{
-        //    CreatePhotoResponse response;
-        //    await using (var ms = new MemoryStream())
-        //    await using (var fs = file.OpenReadStream())
-        //    {
-        //        await fs.CopyToAsync(ms, cancellationToken);
+        
+        [HttpPost("addPhoto")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<CreatePhotoResponse>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> AddPhoto(IFormFile file, CancellationToken cancellationToken)
+        {
+            CreatePhotoResponse response;
+            await using (var ms = new MemoryStream())
+            await using (var fs = file.OpenReadStream())
+            {
+                await fs.CopyToAsync(ms, cancellationToken);
 
-        //        response = await _photoService.AddPhoto(new CreatePhotoRequest()
-        //        {
-        //            Photo = ms.ToArray()
-        //        }, cancellationToken);
-        //    }
+                  response = await _photoService.AddAdPhoto(new CreatePhotoRequest()
+                {
+                    Photo = ms.ToArray()
+                }, cancellationToken);
+            }
 
-        //    return Ok(response.Id);
-        //}
+            return Ok();
+        }
 
         /// <summary>
         /// Удалить фото
