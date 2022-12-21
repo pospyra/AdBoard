@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelectedAd.Contracts
+namespace SelectedAd.Contracts.Ad
 {
     public class CreateAdDto
     {
         public string AdName { get; set; }
 
-        public  string Description { get; set; }
+        public string Description { get; set; }
 
         public string Region { get; set; }
 

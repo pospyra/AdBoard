@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.Ad;
 using SelectedAd.Domain;
 using System.Net;
 using System.Xml.Linq;
@@ -28,7 +28,7 @@ namespace AdBoard.Api.Controllers
             _userService = userService;
         }
 
-        
+
         /// <summary>
         /// Возвращает позиции всех объявлений.
         /// </summary>
@@ -40,7 +40,23 @@ namespace AdBoard.Api.Controllers
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellation, int take, int skip)
         {
-            var result = await _adService.GetAll( cancellation, take, skip);
+            var result = await _adService.GetAll(cancellation, take, skip);
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Вернуть объявление по идентификатору 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("getById")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+
+            var result = await _adService.GetByIdAsync(id);
 
             return Ok(result);
         }
@@ -58,9 +74,9 @@ namespace AdBoard.Api.Controllers
         [AllowAnonymous]
         [HttpGet("filterParam")]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllFilter(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip) { 
+        public async Task<IActionResult> GetAllFilter(Guid? userId, string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, int take, int skip) {
 
-            var result = await _adService.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
+            var result = await _adService.GetAdFiltered(userId, AdName, CategoryId, PossibleOfDelivery, take, skip);
 
             return Ok(result);
         }
@@ -112,13 +128,35 @@ namespace AdBoard.Api.Controllers
         /// <param name="price"></param>
         /// <param name="possibleOfDelivery"></param>
         /// <returns>NoContent</returns>
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        //[ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
+        //public async Task<IActionResult> EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery, CancellationToken cancellation)
+        //{
+        //    var user = await _userService.GetCurrent(cancellation);
+
+        //    await _adService.EditAdAsync( id,  adName,  category,  description,  price,  possibleOfDelivery);
+
+        //    return NoContent();
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="adName"></param>
+        /// <param name="category"></param>
+        /// <param name="description"></param>
+        /// <param name="price"></param>
+        /// <param name="possibleOfDelivery"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpPut("update")]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery, CancellationToken cancellation)
+        public async Task<IActionResult> EditAd2Async(EditAdDto edit, CancellationToken cancellation)
         {
             var user = await _userService.GetCurrent(cancellation);
 
-            await _adService.EditAdAsync( id,  adName,  category,  description,  price,  possibleOfDelivery);
+            await _adService.EditAdAsync(edit);
 
             return NoContent();
         }

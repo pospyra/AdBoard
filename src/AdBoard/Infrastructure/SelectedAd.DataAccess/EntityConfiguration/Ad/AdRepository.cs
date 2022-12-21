@@ -1,7 +1,7 @@
 ﻿using AdBoard.AppServices.Ad.Repositories;
 using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.Ad;
 using SelectedAd.Domain;
 using System;
 using System.Linq;
@@ -37,6 +37,12 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             await _repository.DeleteAsync(existingAd);
         }
 
+        public async Task<Ads> GetByIdAsync(Guid id)
+        {
+            return await _repository.GetByIdAsync(id);
+
+        }
+
         ///<inheritdoc/>
         public async Task EditAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery)
         {
@@ -44,7 +50,7 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 
             if (existingAd == null)
             {
-                throw new InvalidOperationException($"Объявление пользоваеля с идентификатором {id} не найдено");
+                throw new InvalidOperationException($"Объявление с идентификатором {id} не найдено");
             }
             existingAd.AdName = adName;
             existingAd.CategoryId = category;
@@ -56,6 +62,24 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             await _repository.UpdateAsync(existingAd);
         }
 
+
+        public async Task EditAdAsync (EditAdDto edit)
+        {
+            var existingAd = await _repository.GetByIdAsync(edit.Id);
+
+            if (existingAd == null)
+            {
+                throw new InvalidOperationException($"Объявление с идентификатором {edit.Id} не найдено");
+            }
+            existingAd.AdName = edit.AdName;
+            existingAd.CategoryId = edit.CategoryId;
+            existingAd.Description = edit.Description;
+            existingAd.Price = edit.Price;
+            existingAd.PossibleOfDelivery = edit.PossibleDelivery;
+            existingAd.Created = DateTime.UtcNow;
+
+            await _repository.UpdateAsync(existingAd);
+        }
 
         public async Task<Ads> FindById(Guid id, CancellationToken cancellation)
         {
@@ -83,10 +107,16 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             // .Take(take).Skip((take - 1) * skip).ToListAsync(cancellation);
         }
 
-        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip)
+        public async Task<IReadOnlyCollection<AdDto>> GetAdFiltered(Guid? userId, string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, int take, int skip)
         {
 
             var query = _repository.GetAll();
+
+            if (userId != null)
+            {
+                query = query.Where(p => p.UsersId == userId);
+            }
+
 
             if (!string.IsNullOrEmpty(AdName))
             {
@@ -101,11 +131,6 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
             if (PossibleOfDelivery!=null)
             {
                 query = query.Where(d => d.PossibleOfDelivery == PossibleOfDelivery == true);
-            }
-
-            if (Price != null)
-            {
-                query = query.Where(d => d.Price == Price);
             }
 
             return await query.Select(p => new AdDto

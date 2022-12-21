@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.User;
 using SelectedAd.Domain;
 using System.Linq.Expressions;
 using System.Net;
@@ -69,7 +69,26 @@ namespace AdBoard.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("usreId")]
+        /// <summary>
+        /// Вернуть пользователя по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("getById")]
+        [ProducesResponseType(typeof (IReadOnlyCollection<UserDto>), (int)HttpStatusCode.OK)]   
+        public async Task<IActionResult> GetUserById(Guid id, CancellationToken cancellation)
+        {
+            var user =  await _userService.GetById(id, cancellation);
+            return Ok(user);       
+        }
+
+        /// <summary>
+        /// Возвращает текущего пользователя
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("currentUser")]
         [ProducesResponseType(typeof(IReadOnlyCollection<Users>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCurrenUserI(CancellationToken cancellation)
         {

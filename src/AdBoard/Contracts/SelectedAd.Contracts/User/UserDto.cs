@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelectedAd.Contracts
+namespace SelectedAd.Contracts.User
 {
     /// <summary>
     /// Можель представления Пользователя

@@ -1,6 +1,8 @@
-﻿using AdBoard.AppServices.Photos;
+﻿using AdBoard.AppServices.Ad.Services;
+using AdBoard.AppServices.Photos;
 using Microsoft.AspNetCore.Mvc;
 using SelectedAd.Contracts;
+using SelectedAd.Contracts.Photo;
 using SelectedAd.Domain;
 using System.Net;
 using System.Web;
@@ -25,18 +27,25 @@ namespace AdBoard.Api.Controllers
         /// <param name="photo"></param>
         /// <param name="image"></param>
         /// <param name="cancellation"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(IReadOnlyCollection<PhotoDto>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> AddPhotoAsync(Photo photo, IFormFile image, CancellationToken cancellation)
-        {
-            photo.ImageMimeType = image.ContentType;
-            photo.LinkPhoto = new byte[image.Length];
+        ///// <returns></returns>
+        //[HttpPost("addPhoto")]
+        //[ProducesResponseType(typeof(IReadOnlyCollection<PhotoDto>), (int)HttpStatusCode.Created)]
+        //public async Task<IActionResult> AddPhoto(IFormFile file, CancellationToken cancellationToken)
+        //{
+        //    CreatePhotoResponse response;
+        //    await using (var ms = new MemoryStream())
+        //    await using (var fs = file.OpenReadStream())
+        //    {
+        //        await fs.CopyToAsync(ms, cancellationToken);
 
-            await _photoService.AddAPhotosync(photo, cancellation);
+        //        response = await _photoService.AddPhoto(new CreatePhotoRequest()
+        //        {
+        //            Photo = ms.ToArray()
+        //        }, cancellationToken);
+        //    }
 
-            return Created("", new { });
-        }
+        //    return Ok(response.Id);
+        //}
 
         /// <summary>
         /// Удалить фото

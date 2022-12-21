@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.User;
 using SelectedAd.Domain;
 using System.Linq.Expressions;
 
-namespace AdBoard { 
+namespace AdBoard
+{
 
     /// <summary>
     /// 
@@ -80,5 +81,7 @@ namespace AdBoard {
         /// <param name="cancellation"></param>
         /// <returns></returns>
         Task<Users> GetCurrent(CancellationToken cancellation);
+
+        Task<Users> GetById(Guid id, CancellationToken cancellation);
     }
 }

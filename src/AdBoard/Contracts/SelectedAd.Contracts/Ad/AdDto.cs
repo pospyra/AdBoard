@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelectedAd.Contracts
+namespace SelectedAd.Contracts.Ad
 {
     /// <summary>
     /// Модель представления объявлений.
@@ -44,7 +44,7 @@ namespace SelectedAd.Contracts
         /// <summary>
         /// Возомжность доставки
         /// </summary>
-        public  bool PossibleOfDelivery { get; set; }
+        public bool PossibleOfDelivery { get; set; }
 
         public Guid? UserId { get; set; }
     }

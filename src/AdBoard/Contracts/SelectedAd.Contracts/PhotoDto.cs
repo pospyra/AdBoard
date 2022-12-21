@@ -16,7 +16,7 @@ namespace SelectedAd.Contracts
         /// <summary>
         /// Адрес Фото
         /// </summary>
-        public byte[] LinkPhoto { get; set; }
+        public byte[] Photo { get; set; }
 
         /// <summary>
         /// Mine type Изображение

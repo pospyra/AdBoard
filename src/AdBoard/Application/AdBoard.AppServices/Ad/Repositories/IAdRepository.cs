@@ -1,4 +1,4 @@
-﻿using SelectedAd.Contracts;
+﻿using SelectedAd.Contracts.Ad;
 using SelectedAd.Domain;
 
 namespace AdBoard.AppServices.Ad.Repositories
@@ -8,6 +8,14 @@ namespace AdBoard.AppServices.Ad.Repositories
     /// </summary>
     public interface IAdRepository
     {
+        /// <summary>
+        /// Вернуть объявление по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+         Task<Ads> GetByIdAsync(Guid id);
+
+
 
         /// <summary>
         /// Возвращает все объявления используя постаничную загрузку
@@ -33,7 +41,7 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="cancellation">Отмена операции</param>
         /// <returns>Коллекция элементов <see cref="AdDto"/>.</returns>
         /// Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip);
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(Guid? userId, string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, int take, int skip);
 
        Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
 
@@ -63,5 +71,8 @@ namespace AdBoard.AppServices.Ad.Repositories
         /// <param name="possibleOfDelivery"></param>
         /// <param name="dateOfChange"></param>
         Task EditAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery);
+
+
+        Task EditAdAsync(EditAdDto edit);
     }
 }

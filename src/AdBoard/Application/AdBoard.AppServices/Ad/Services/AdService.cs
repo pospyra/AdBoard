@@ -1,6 +1,6 @@
 ﻿using AdBoard.AppServices.Ad.Repositories;
 using AdBoard.AppServices.User.IRepository;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.Ad;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
@@ -49,6 +49,12 @@ namespace AdBoard.AppServices.Ad.Services
             return _adRepository.EditAsync(id, adName, category, description, price, possibleOfDelivery);
         }
 
+
+        public Task EditAdAsync( EditAdDto edit)
+        {
+            return _adRepository.EditAdAsync(edit);
+        }
+
         ///<inheritdoc/>
         public Task DeleteAsync(Guid id, CancellationToken cancellation)
         {
@@ -56,9 +62,9 @@ namespace AdBoard.AppServices.Ad.Services
         }
 
         ///<inheritdoc/>
-        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip)
+        public Task<IReadOnlyCollection<AdDto>> GetAdFiltered(Guid? userId, string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, int take, int skip)
         {
-           return _adRepository.GetAdFiltered(AdName, CategoryId, PossibleOfDelivery, Price, take, skip);
+           return _adRepository.GetAdFiltered(userId, AdName, CategoryId, PossibleOfDelivery, take, skip);
         }
 
         ///<inheritdoc/>
@@ -93,6 +99,11 @@ namespace AdBoard.AppServices.Ad.Services
             await _adRepository.AddAsync(ad);
 
             return ad.Id;
+        }
+
+        public async Task<Ads> GetByIdAsync(Guid id)
+        {
+           return await _adRepository.GetByIdAsync(id);
         }
     }
 }

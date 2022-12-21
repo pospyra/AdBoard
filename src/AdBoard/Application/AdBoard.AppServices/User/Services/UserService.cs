@@ -1,5 +1,4 @@
 ﻿using AdBoard.AppServices.User.IRepository;
-using SelectedAd.Contracts;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web.Http;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SelectedAd.Contracts.User;
 
 namespace AdBoard
 {
@@ -221,6 +221,11 @@ namespace AdBoard
             await _userRepository.AddAsync(user);
 
             return user.Id;
+        }
+
+        public async  Task<Users> GetById(Guid id, CancellationToken cancellation)
+        {
+            return await _userRepository.FindById(id, cancellation);
         }
     }
 

@@ -15,9 +15,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Photo
         private readonly IRepository<Domain.Photo> _repository;
 
         /// <summary>
-        /// Инициализирует экземпляр <see cref="cref = "PhotoRepository"/>
+        /// Репозиторий для фото
         /// </summary>
-        /// <param name="repository">Базовый репозиторий</param>
+        /// <param name="repository"></param>
         public PhotoRepository(IRepository<Domain.Photo> repository)
         {
             _repository = repository;

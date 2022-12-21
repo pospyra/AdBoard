@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.User;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;

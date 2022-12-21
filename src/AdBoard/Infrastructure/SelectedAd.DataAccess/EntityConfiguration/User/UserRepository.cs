@@ -2,7 +2,7 @@
 using AdBoard.AppServices.User.IRepository;
 using AdBoard.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
-using SelectedAd.Contracts;
+using SelectedAd.Contracts.User;
 using SelectedAd.Domain;
 using System.Linq.Expressions;
 

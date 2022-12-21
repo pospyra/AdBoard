@@ -1,4 +1,5 @@
-﻿using SelectedAd.Domain;
+﻿using SelectedAd.Contracts.Photo;
+using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,6 @@ namespace AdBoard.AppServices.Photos
         /// <param name="photo"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task<Guid> AddAPhotosync(Photo photo, CancellationToken cancellation);
+        //Task<CreatePhotoResponse> AddAPhotoc(CreatePhotoRequest photo, CancellationToken cancellation);
     }
 }

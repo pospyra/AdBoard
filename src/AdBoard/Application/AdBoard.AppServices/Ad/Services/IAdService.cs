@@ -1,10 +1,10 @@
-﻿using SelectedAd.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SelectedAd.Domain;
+using SelectedAd.Contracts.Ad;
 
 namespace AdBoard.AppServices.Ad.Services
 {
@@ -13,6 +13,12 @@ namespace AdBoard.AppServices.Ad.Services
     /// </summary>
     public interface IAdService
     {
+        /// <summary>
+        /// Вернуть объявление по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+         Task<Ads> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Создание объявления
@@ -38,7 +44,7 @@ namespace AdBoard.AppServices.Ad.Services
         /// <param name=""></param>
         /// <returns></returns>
         //  Task<IReadOnlyCollection<AdDto>> GetAllFiltered(AdFilterRequest request);
-        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, decimal? Price, int take, int skip);
+        Task<IReadOnlyCollection<AdDto>> GetAdFiltered(Guid? userId, string? AdName, Guid? CategoryId, bool? PossibleOfDelivery, int take, int skip);
 
 
         /// <summary>
@@ -62,6 +68,7 @@ namespace AdBoard.AppServices.Ad.Services
         Task EditAdAsync(Guid id, string adName, Guid category, string description, decimal price, bool possibleOfDelivery);
 
 
+        Task EditAdAsync(EditAdDto edit);
 
 
         /// <summary>

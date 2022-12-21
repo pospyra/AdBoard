@@ -23,7 +23,14 @@
             <param name="cancellation"></param>
             <returns>Ok(result)</returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.GetAllFilter(System.String,System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Int32,System.Int32)">
+        <member name="M:AdBoard.Api.Controllers.AdController.GetById(System.Guid)">
+            <summary>
+            Вернуть объявление по идентификатору 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.AdController.GetAllFilter(System.Nullable{System.Guid},System.String,System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Int32,System.Int32)">
             <summary>
             Возвращает объявление по параметру
             </summary>
@@ -35,7 +42,7 @@
             <param name="skip"></param>
             <returns></returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.GetAdFilter(SelectedAd.Contracts.AdFilterRequest)">
+        <member name="M:AdBoard.Api.Controllers.AdController.GetAdFilter(SelectedAd.Contracts.Ad.AdFilterRequest)">
             <summary>
             
             </summary>
@@ -47,7 +54,7 @@
             <param name="skip"></param>
             <returns></returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(SelectedAd.Contracts.CreateAdDto,System.Threading.CancellationToken)">
+        <member name="M:AdBoard.Api.Controllers.AdController.CreateAdAsync(SelectedAd.Contracts.Ad.CreateAdDto,System.Threading.CancellationToken)">
             <summary>
             Создать объявление
             </summary>
@@ -55,16 +62,18 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:AdBoard.Api.Controllers.AdController.EditAdAsync(System.Guid,System.String,System.Guid,System.String,System.Decimal,System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:AdBoard.Api.Controllers.AdController.EditAd2Async(SelectedAd.Contracts.Ad.EditAdDto,System.Threading.CancellationToken)">
             <summary>
-            Редактирует объявление
+            
             </summary>
+            <param name="id"></param>
             <param name="adName"></param>
             <param name="category"></param>
             <param name="description"></param>
             <param name="price"></param>
             <param name="possibleOfDelivery"></param>
-            <returns>NoContent</returns>
+            <param name="cancellation"></param>
+            <returns></returns>
         </member>
         <member name="M:AdBoard.Api.Controllers.AdController.DeleteUserAsync(System.Guid,System.Threading.CancellationToken)">
             <summary>
@@ -126,15 +135,6 @@
             Удалить категорию
             </summary>
             <param name="id"></param>
-            <param name="cancellation"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AdBoard.Api.Controllers.PhotoController.AddPhotoAsync(SelectedAd.Domain.Photo,Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
-            <summary>
-            Добавить фото
-            </summary>
-            <param name="photo"></param>
-            <param name="image"></param>
             <param name="cancellation"></param>
             <returns></returns>
         </member>
@@ -206,7 +206,7 @@
             Работа с Пользователями
             </summary>
         </member>
-        <member name="M:AdBoard.Api.Controllers.UserController.Registration(SelectedAd.Contracts.UserRegister)">
+        <member name="M:AdBoard.Api.Controllers.UserController.Registration(SelectedAd.Contracts.User.UserRegister)">
             <summary>
             Регистрация Пользователей
             </summary>
@@ -214,7 +214,7 @@
             <returns></returns>
             Потом сама если что роут изменишь И ТАМ И ТАМ
         </member>
-        <member name="M:AdBoard.Api.Controllers.UserController.Login(SelectedAd.Contracts.UserLogin)">
+        <member name="M:AdBoard.Api.Controllers.UserController.Login(SelectedAd.Contracts.User.UserLogin)">
             <summary>
             Аутентификация Пользователя
             </summary>
@@ -224,6 +224,21 @@
         <member name="M:AdBoard.Api.Controllers.UserController.GetAllUser(System.Threading.CancellationToken)">
             <summary>
             Возвращает всех Пользователей
+            </summary>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.UserController.GetUserById(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Вернуть пользователя по идентификатору
+            </summary>
+            <param name="id"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdBoard.Api.Controllers.UserController.GetCurrenUserI(System.Threading.CancellationToken)">
+            <summary>
+            Возвращает текущего пользователя
             </summary>
             <param name="cancellation"></param>
             <returns></returns>
