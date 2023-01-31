@@ -16,21 +16,21 @@ namespace SelectedAd.Domain
         /// <summary>
         /// Адрес Фото
         /// </summary>
-        public byte[] LinkPhoto { get; set; }
+       // public byte[] BytePhoto { get; set; }
 
         /// <summary>
-        /// Mine type Изображения
+        /// 
         /// </summary>
-        public string KodBase64 { get; set; }
+        public string KodBase64 {get; set; }
 
         /// <summary>
         /// Идентификатор Объявления
         /// </summary>
-        public Guid AdId { get; set; }
+        public Guid? AdId { get; set; }
 
         /// <summary>
         /// Объявление
         /// </summary>
-        public Ads Ad { get; set; }
+         public Ads? Ad { get; set; } 
     }
 }

@@ -27,7 +27,7 @@ namespace AdBoard.Infrastructure.Repository
         ///Возвращает все значения <see cref="TEntity"/> по Id
         ///</summary>
         ///<param name="Id"> Идентификатор <see cref="TEntity"/>.</param>
-        Task<TEntity> GetByIdAsync(Guid Id);
+        Task<TEntity> GetByIdAsync(Guid? Id);
 
         ///<summary>
         ///Добавить элемент <see cref="TEntity"/>

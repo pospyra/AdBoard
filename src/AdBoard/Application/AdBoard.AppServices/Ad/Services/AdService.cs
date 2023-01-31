@@ -1,11 +1,14 @@
 ﻿using AdBoard.AppServices.Ad.Repositories;
+using AdBoard.AppServices.Photos;
 using AdBoard.AppServices.User.IRepository;
 using SelectedAd.Contracts.Ad;
+using SelectedAd.Contracts.Photo;
 using SelectedAd.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdBoard.AppServices.Ad.Services
@@ -14,11 +17,13 @@ namespace AdBoard.AppServices.Ad.Services
     {
         private readonly IAdRepository _adRepository;
         private readonly IUserService _userService;
+        private readonly IPhotoService _photoService;
 
-        public AdService(IAdRepository adRepository, IUserService userService)
+        public AdService(IAdRepository adRepository, IUserService userService, IPhotoService photoService)
         {
             _adRepository = adRepository;
             _userService = userService;
+            _photoService = photoService;
         }
 
         ///<inheritdoc/>
@@ -34,11 +39,19 @@ namespace AdBoard.AppServices.Ad.Services
                 PossibleOfDelivery = createAd.PossibleDelivery,
                 UsersId = currentUser,
                 Created = DateTime.UtcNow,
-                Region = createAd.Region
-                
+                Region = createAd.Region             
             };
-
             await _adRepository.AddAsync(ad);
+
+            foreach (var photoId in createAd.Photos)
+            {
+                await _photoService.SetAdPhoto(new SetAdPhotoRequest()
+                {
+                    Id = photoId,
+                    AdId = ad.Id,
+
+                }, cancellation);
+            }
 
             return ad.Id;
         }

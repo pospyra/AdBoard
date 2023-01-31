@@ -15,9 +15,13 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Photo
             builder.ToTable("Photo");
 
             builder.HasKey(p => p.Id);
-           // builder.Property(x => x.KodBase64).IsRequired();
-             builder.Property(b => b.Id).ValueGeneratedOnAdd();
+            builder.Property(b => b.Id).ValueGeneratedOnAdd();
 
+           // builder.Property(x => x.KodBase64).IsRequired();
+
+            //builder.HasOne(x => x.Ad)
+            //   .WithMany(x => x.Photo)
+            //   .HasForeignKey(s => s.AdId);
         }
     }
 }

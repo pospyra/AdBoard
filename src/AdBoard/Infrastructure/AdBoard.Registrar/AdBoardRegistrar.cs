@@ -16,6 +16,9 @@ using SelectedAd.DataAccess.EntityConfiguration.User;
 using AdBoard.AppServices.Category;
 using SelectedAd.DataAccess.EntityConfiguration.Categories;
 using AdBoard.Infrastructure.Identity;
+using AdBoard.AppServices.Photos;
+using SelectedAd.DataAccess.EntityConfiguration.Photo;
+using AutoMapper;
 
 namespace AdBoard.Registrar
 {
@@ -39,6 +42,10 @@ namespace AdBoard.Registrar
             // Регистрация объявления
             services.AddTransient<IAdService, AdService>();
             services.AddTransient<IAdRepository, AdRepository>();
+
+            //регистрация фото
+            services.AddTransient<IPhotoService, PhotoService>();
+            services.AddTransient<IPhotoRepository, PhotoRepository>();
 
             //Регистрация Избранных
             services.AddTransient<ISelectedAdService, SelectedAdService>();

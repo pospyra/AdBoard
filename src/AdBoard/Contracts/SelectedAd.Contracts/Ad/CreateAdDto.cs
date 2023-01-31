@@ -12,12 +12,11 @@ namespace SelectedAd.Contracts.Ad
 
         public string Description { get; set; }
 
-        public string Region { get; set; }
+        public string? Region { get; set; }
 
         public Guid CategoryId { get; set; }
 
-
-        public byte[]? LinkPhoto { get; set; }
+        public ICollection<Guid> Photos { get; set; }
 
         public decimal Price { get; set; }
 

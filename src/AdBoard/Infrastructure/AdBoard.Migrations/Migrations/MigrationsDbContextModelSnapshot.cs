@@ -44,9 +44,6 @@ namespace AdBoard.Migrations.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<Guid?>("PgotoId")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("PossibleOfDelivery")
                         .HasColumnType("boolean");
 
@@ -119,16 +116,12 @@ namespace AdBoard.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AdId")
+                    b.Property<Guid?>("AdId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("KodBase64")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("LinkPhoto")
-                        .IsRequired()
-                        .HasColumnType("bytea");
 
                     b.HasKey("Id");
 
@@ -264,9 +257,7 @@ namespace AdBoard.Migrations.Migrations
                 {
                     b.HasOne("SelectedAd.Domain.Ads", "Ad")
                         .WithMany("Photo")
-                        .HasForeignKey("AdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdId");
 
                     b.Navigation("Ad");
                 });

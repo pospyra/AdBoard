@@ -1,4 +1,5 @@
 ﻿using AdBoard.AppServices.Ad.Repositories;
+using AutoMapper;
 using SelectedAd.Contracts.Photo;
 using SelectedAd.Domain;
 using System;
@@ -20,10 +21,43 @@ namespace AdBoard.AppServices.Photos
             _photoRepository = photoRepository;
         }
 
-        public async Task<CreatePhotoResponse> AddAdPhoto(CreatePhotoRequest photo, CancellationToken cancellation)
+        public async Task<CreatePhotoResponse> AddAdPhoto(CreatePhotoRequest request, CancellationToken cancellation) //дл\ добавления фото в бд
         {
-            return await _photoRepository.AddAPhoto(photo, cancellation);
+            if (request.Photo.Length > 5242880)
+            {
+                throw new Exception("Слишклм большой размер");
+            }
+
+            var photos = new Photo()
+            {
+                KodBase64 = Convert.ToBase64String(request.Photo, 0, request.Photo.Length)
+            };
+
+            await _photoRepository.AddPhotoAsync(photos);
+
+            var res = new CreatePhotoResponse
+            {
+                Id = photos.Id
+            };
+            return res;
         }
+
+        //public async Task<Guid> AddAdPhoto(Photo photo, CancellationToken cancellation)
+        //{
+        //    if (photo.BytePhoto.Length > 5242880)
+        //    {
+        //        throw new Exception("Слишклм большой размер");
+        //    }
+
+        //    var photos = new Photo()
+        //    {
+        //        KodBase64 = Convert.ToBase64String(photo.BytePhoto, 0, photo.BytePhoto.Length)
+        //    };
+
+        //    await _photoRepository.AddPhotoAsync(photos);
+
+        //    return photos.Id;
+        //}
 
 
         ///<inheritdoc/>
@@ -31,5 +65,17 @@ namespace AdBoard.AppServices.Photos
         {
             await _photoRepository.DeleteAsync(id, cancellation);
         }
+
+        public async Task SetAdPhoto(SetAdPhotoRequest request, CancellationToken cancellation) //дл\ добавлния фото у объявлению
+        {
+            var photo = await _photoRepository.FindById(request.Id, cancellation);
+
+            photo.AdId = request.AdId;
+
+            await _photoRepository.UpdatePhotoAsync(photo);
+
+            // await _photoRepository.AddPhotoAsync(photo);
+        }
+
     }
 }

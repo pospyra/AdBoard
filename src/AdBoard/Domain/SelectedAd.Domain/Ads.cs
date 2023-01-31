@@ -41,11 +41,6 @@
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Идентификатор фото объявления
-        /// </summary>
-        public Guid? PgotoId { get; set; }
-
-        /// <summary>
         /// Возомжность доставки
         /// </summary>
         public bool PossibleOfDelivery { get; set; }
@@ -69,7 +64,7 @@
         /// <summary>
         /// Коллекция фото
         /// </summary>
-        public ICollection<Photo> Photo { get; set; }
+        public ICollection<Photo>? Photo { get; set; }
 
         /// <summary>
         /// Категория

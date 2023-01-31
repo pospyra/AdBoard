@@ -24,28 +24,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Photo
             _repository = repository;
         }
 
-        public async Task<CreatePhotoResponse> AddAPhoto(CreatePhotoRequest photo, CancellationToken cancellation)
+        public  Task AddPhotoAsync(Domain.Photo model) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!надо для добавления фото в бд 
         {
-            if (photo.Photo.Length > 5242880)
-            {
-                throw new Exception("Слишклм большой размер");
-            }
-
-            Domain.Photo photos = new Domain.Photo()
-            {
-                KodBase64 = Convert.ToBase64String(photo.Photo, 0, photo.Photo.Length)
-            };
-            await _repository.AddAsync(photos);
-            var result = new CreatePhotoResponse
-            {
-                Id = photos.Id
-            };
-            return result;
-        }
-
-        public Task AddPhotoAsync(Domain.Photo model)
-        {
-            return _repository.AddAsync(model);
+             return _repository.AddAsync(model);
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellation)
@@ -53,6 +34,16 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Photo
             var existingPhoto = await _repository.GetByIdAsync(id);
 
             await _repository.DeleteAsync(existingPhoto);
+        }
+
+        public async Task<Domain.Photo> FindById(Guid? id, CancellationToken cancellationToken)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        public Task UpdatePhotoAsync(Domain.Photo model)
+        {
+            return _repository.UpdateAsync(model);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace AdBoard.AppServices.Photos
         /// <returns></returns>
         public Task AddPhotoAsync(Photo model);
 
+        public Task UpdatePhotoAsync(Photo model);
+
         /// <summary>
         /// Удаляет фото к объявлению
         /// </summary>
@@ -25,7 +27,7 @@ namespace AdBoard.AppServices.Photos
         /// <param name="cancellation">Отмена операции</param>
         Task DeleteAsync(Guid id, CancellationToken cancellation);
 
-        Task<CreatePhotoResponse> AddAPhoto(CreatePhotoRequest photo, CancellationToken cancellation);
+        Task<Photo> FindById(Guid? id, CancellationToken cancellationToken);
 
     }
 }

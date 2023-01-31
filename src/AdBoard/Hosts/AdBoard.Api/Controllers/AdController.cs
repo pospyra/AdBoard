@@ -15,7 +15,6 @@ namespace AdBoard.Api.Controllers
 
     [ApiController]
     [Route("v1/[controller]")]
-    [AllowAnonymous]
 
     public class AdController : ControllerBase
     {
@@ -82,7 +81,7 @@ namespace AdBoard.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Вернуть объявления по фильтру
         /// </summary>
         /// <param name="AdName"></param>
         /// <param name="CategoryId"></param>
@@ -108,11 +107,12 @@ namespace AdBoard.Api.Controllers
         /// <param name="createAd"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("createAd")]
         [ProducesResponseType(typeof(IReadOnlyCollection<CreateAdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateAdAsync(CreateAdDto createAd, CancellationToken cancellation)
         {
-            var user = await _userService.GetCurrentUserId(cancellation);
+            //var user = await _userService.GetCurrentUserId(cancellation);
 
             var result = await _adService.CreateAdAsync(createAd, cancellation);
 
@@ -140,7 +140,7 @@ namespace AdBoard.Api.Controllers
         //}
 
         /// <summary>
-        /// 
+        /// Редактировать объявление
         /// </summary>
         /// <param name="id"></param>
         /// <param name="adName"></param>
@@ -150,6 +150,7 @@ namespace AdBoard.Api.Controllers
         /// <param name="possibleOfDelivery"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("update")]
         [ProducesResponseType(typeof(IReadOnlyCollection<AdDto>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> EditAd2Async(EditAdDto edit, CancellationToken cancellation)
@@ -167,12 +168,13 @@ namespace AdBoard.Api.Controllers
         /// <param name="id"></param>
         /// <param name="cancellation"></param>
         /// <returns>NoContent</returns>
+        [Authorize]
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteUserAsync(Guid id, CancellationToken cancellation)
         {
-            var user = await _userService.GetCurrent(cancellation);
+            //var user = await _userService.GetCurrent(cancellation);
 
             await _adService.DeleteAsync(id, cancellation);
 

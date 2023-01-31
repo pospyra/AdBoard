@@ -21,11 +21,9 @@ namespace SelectedAd.DataAccess.EntityConfiguration.Ad
                 .WithOne(s => s.Ad)//у избранного - есть одно объявление(из бд)
                 .HasForeignKey(s => s.AdId);//связь по внешнему ключу
 
-            //Ad_Photos
-            builder.HasMany(p => p.Photo)
-                .WithOne(s => s.Ad)
-                .HasForeignKey(s => s.AdId);
+            builder.HasMany(x => x.Photo)//много фото
+               .WithOne(x => x.Ad)//одно объявление
+               .HasForeignKey(s => s.AdId);
         }
     }
 }
- 

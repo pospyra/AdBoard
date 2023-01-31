@@ -9,7 +9,6 @@ using System.Web;
 
 namespace AdBoard.Api.Controllers
 {
-
     [ApiController]
     [Route("v1/[controller]")]
     public class PhotoController : ControllerBase
@@ -21,6 +20,7 @@ namespace AdBoard.Api.Controllers
             _photoService = photoService;
         }
 
+
         /// <summary>
         /// Добавить фото
         /// </summary>
@@ -28,25 +28,29 @@ namespace AdBoard.Api.Controllers
         /// <param name="image"></param>
         /// <param name="cancellation"></param>
         ///// <returns></returns>
-        
+
         [HttpPost("addPhoto")]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CreatePhotoResponse>), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> AddPhoto(IFormFile file, CancellationToken cancellationToken)
         {
-            CreatePhotoResponse response;
+             CreatePhotoResponse response;
             await using (var ms = new MemoryStream())
             await using (var fs = file.OpenReadStream())
             {
                 await fs.CopyToAsync(ms, cancellationToken);
 
-                  response = await _photoService.AddAdPhoto(new CreatePhotoRequest()
+                //Photo photo = new Photo
+                //{
+                //    BytePhoto = ms.ToArray()
+                //};
+                //await _photoService.AddAdPhoto(photo, cancellationToken);
+                response = await _photoService.AddAdPhoto(new CreatePhotoRequest()
                 {
                     Photo = ms.ToArray()
                 }, cancellationToken);
             }
 
-            return Ok();
-        }
+            return Ok(response.Id);
+            }
 
         /// <summary>
         /// Удалить фото

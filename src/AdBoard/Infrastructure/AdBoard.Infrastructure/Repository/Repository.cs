@@ -68,7 +68,7 @@ namespace AdBoard.Infrastructure.Repository
         }
 
         /// <inheritdoc />
-        public async Task<TEntity> GetByIdAsync(Guid Id)
+        public async Task<TEntity> GetByIdAsync(Guid? Id)
         {
             return await DbSet.FindAsync(Id);
         }

@@ -5,6 +5,7 @@ using SelectedAd.Contracts.Ad;
 using SelectedAd.Domain;
 using System;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SelectedAd.DataAccess.EntityConfiguration.Ad
 {

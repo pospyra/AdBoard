@@ -17,6 +17,9 @@ namespace AdBoard.AppServices.Photos
         /// <param name="cancellation"></param>
         public Task DeleteAsync(Guid id, CancellationToken cancellation);
 
+
+        Task SetAdPhoto(SetAdPhotoRequest request, CancellationToken cancellationToken);
+
         /// <summary>
         /// Добавляет фото
         /// </summary>
@@ -25,5 +28,7 @@ namespace AdBoard.AppServices.Photos
         /// <returns></returns>
         /// 
         Task<CreatePhotoResponse> AddAdPhoto(CreatePhotoRequest photo, CancellationToken cancellation);
+
+       // Task<Guid> AddAdPhoto(Photo photo, CancellationToken cancellation);
     }
 }
